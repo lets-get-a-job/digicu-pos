@@ -1,0 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, Input, Container } from '../atom';
+
+const InputBox = ({ label, type }) => (
+  <Container style={{ paddingTop: '20px' }}>
+    <Text style={{ width: '100%', marginBottom: '20px' }}>{label}</Text>
+    <Input type={type} borderBottom="1px solid #002060" />
+  </Container>
+);
+
+InputBox.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+export default InputBox;
