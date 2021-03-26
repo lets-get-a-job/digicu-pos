@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { LogoImg, Div, Container, Text, Button } from '../../components/atom';
-import { InputBox } from '../../components/mocules';
+import { InputBox, CheckBox } from '../../components/mocules';
 
 const LogInContainer = styled(Div)`
   flex-direction: row;
@@ -40,6 +41,7 @@ const LogInBox = styled(Div)`
   padding-top: 30px;
   margin: 0px;
   background-color: white;
+  padding: 0px 12%;
 `;
 
 const SignInBtn = styled(Text)`
@@ -49,6 +51,9 @@ const SignInBtn = styled(Text)`
 `;
 
 export default function LogInPage() {
+  const history = useHistory();
+  const [check, setCheck] = useState(false);
+
   return (
     <>
       <Container
@@ -78,18 +83,22 @@ export default function LogInPage() {
               Login here.
             </p>
           </InfoBox>
-          <LogInBox>
+          <LogInBox className="login box">
             <InputBox label="E-MAIL" type="email" />
             <InputBox label="PASSWORD" type="password" />
+            <div style={{ margin: '30px 0px 45px 0px', width: '100%' }}>
+              <CheckBox text="Remember me?" check={check} setCheck={setCheck} />
+            </div>
             <Button
               style={{
                 background: 'linear-gradient( 135deg, #406bc2, #002060 )',
                 color: 'white',
+                borderRadius: '5px',
               }}
             >
               로그인
             </Button>
-            <SignInBtn>회원가입</SignInBtn>
+            <SignInBtn onClick={() => history.push('/cpi')}>회원가입</SignInBtn>
           </LogInBox>
         </LogInContainer>
       </Container>
