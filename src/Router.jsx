@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { LogInPage } from './pages';
+import { LogInPage, CPIPage } from './pages';
 
 const Router = () => {
   const pages = [
     {
       mode: 'route',
-      paths: [{ path: '/', component: LogInPage }],
+      paths: [
+        { path: '/', component: LogInPage },
+        { path: '/cpi', component: CPIPage },
+      ],
     },
   ];
   return (
