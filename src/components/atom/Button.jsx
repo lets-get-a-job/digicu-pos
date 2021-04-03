@@ -8,6 +8,9 @@ const Button = styled.button`
   :hover {
     opacity: 0.8;
   }
+  background: linear-gradient(135deg, #406bc2, #002060);
+  color: white;
+  border-radius: 5px;
 `;
 
 export default Button;

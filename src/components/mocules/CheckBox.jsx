@@ -9,7 +9,7 @@ const CheckBoxContainer = styled(Container)`
   align-items: center;
 `;
 
-export default function CheckBox({ text, check, setCheck }) {
+export default function CheckBox({ text, check, setCheck, name, ref }) {
   const handleOnCheck = () => {
     setCheck(!check);
   };
@@ -17,9 +17,11 @@ export default function CheckBox({ text, check, setCheck }) {
     <>
       <CheckBoxContainer>
         <Input
+          name={name}
+          ref={ref}
           type="checkbox"
           onClick={handleOnCheck}
-          style={{ marginRight: '10px' }}
+          style={{ marginRight: '10px', transform: 'scale(1.5)' }}
         />
         <Text style={{ fontSize: '18px' }}>{text}</Text>
       </CheckBoxContainer>
@@ -27,8 +29,15 @@ export default function CheckBox({ text, check, setCheck }) {
   );
 }
 
+CheckBox.defaultProps = {
+  name: null,
+  ref: null,
+};
+
 CheckBox.propTypes = {
   text: PropTypes.string.isRequired,
   check: PropTypes.bool.isRequired,
   setCheck: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  ref: PropTypes.string,
 };
