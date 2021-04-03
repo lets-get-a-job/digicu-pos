@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { LogoImg, Div, Container, Text, Button } from '../../components/atom';
+import {
+  LogoImg,
+  Div,
+  MainContainer,
+  Text,
+  Button,
+} from '../../components/atom';
 import { InputBox, CheckBox } from '../../components/mocules';
 
 const LogInContainer = styled(Div)`
@@ -11,8 +17,7 @@ const LogInContainer = styled(Div)`
   min-width: 800px;
   min-height: 500px;
   padding: 0px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-radius: 15px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 `;
 
@@ -38,7 +43,6 @@ const LogInBox = styled(Div)`
   height: 500px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  padding-top: 30px;
   margin: 0px;
   background-color: white;
   padding: 0px 12%;
@@ -56,12 +60,7 @@ export default function LogInPage() {
 
   return (
     <>
-      <Container
-        style={{
-          backgroundColor: 'rgba(173, 173, 173, 0.13)',
-          height: '100vh',
-        }}
-      >
+      <MainContainer>
         <LogoImg
           style={{
             width: '20%',
@@ -89,19 +88,11 @@ export default function LogInPage() {
             <div style={{ margin: '30px 0px 45px 0px', width: '100%' }}>
               <CheckBox text="Remember me?" check={check} setCheck={setCheck} />
             </div>
-            <Button
-              style={{
-                background: 'linear-gradient( 135deg, #406bc2, #002060 )',
-                color: 'white',
-                borderRadius: '5px',
-              }}
-            >
-              로그인
-            </Button>
+            <Button>로그인</Button>
             <SignInBtn onClick={() => history.push('/cpi')}>회원가입</SignInBtn>
           </LogInBox>
         </LogInContainer>
-      </Container>
+      </MainContainer>
     </>
   );
 }

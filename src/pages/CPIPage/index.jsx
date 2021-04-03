@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { LogoImg, Container, Button } from '../../components/atom';
+import {
+  LogoImg,
+  Container,
+  Button,
+  MainContainer,
+} from '../../components/atom';
 import { CheckBox } from '../../components/mocules';
 import Data from './cpi.json';
 
@@ -15,21 +20,17 @@ export default function CPIPage() {
   const [check, setCheck] = useState(false);
   const history = useHistory();
 
-  const handleOnNexyBtn = () => {
+  const handleOnNextBtn = () => {
     // eslint-disable-next-line no-unused-expressions
     // eslint-disable-next-line
-    check ? history.push('/') : alert('개인정보수집이용을 동의하여야합니다.');
+    check
+      ? history.push('/signup')
+      : alert('개인정보수집이용을 동의하여야합니다.');
   };
 
   return (
     <>
-      <Container
-        style={{
-          backgroundColor: 'rgba(173, 173, 173, 0.13)',
-          height: '100vh',
-          padding: '50px auto',
-        }}
-      >
+      <MainContainer>
         <LogoImg
           style={{
             width: '20%',
@@ -47,6 +48,8 @@ export default function CPIPage() {
             resize: 'none',
             fontSize: '24px',
             overflow: 'scroll',
+            textAlign: 'center',
+            verticalAlign: 'center',
           }}
           value={Data.text}
           readOnly
@@ -55,18 +58,9 @@ export default function CPIPage() {
           <div style={{ margin: '20px 0px' }}>
             <CheckBox text="동의합니다." check={check} setCheck={setCheck} />
           </div>
-          <Button
-            style={{
-              background: 'linear-gradient( 135deg, #406bc2, #002060 )',
-              color: 'white',
-              borderRadius: '5px',
-            }}
-            onClick={handleOnNexyBtn}
-          >
-            다음
-          </Button>
+          <Button onClick={handleOnNextBtn}>다음</Button>
         </SubContainer>
-      </Container>
+      </MainContainer>
     </>
   );
 }

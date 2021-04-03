@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { LogInPage, CPIPage } from './pages';
+import { LogInPage, CPIPage, SignUpPage, ManagePage } from './pages';
 
 const Router = () => {
   const pages = [
@@ -9,6 +9,8 @@ const Router = () => {
       paths: [
         { path: '/', component: LogInPage },
         { path: '/cpi', component: CPIPage },
+        { path: '/signup', component: SignUpPage },
+        { path: '/manage', component: ManagePage },
       ],
     },
   ];

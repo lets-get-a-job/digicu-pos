@@ -7,4 +7,11 @@ const Container = styled.div`
   padding-top: 50px;
 `;
 
-export default Container;
+const MainContainer = styled(Container)`
+  background-color: rgba(173, 173, 173, 0.13);
+  height: auto;
+  min-height: 100vh;
+  padding: 50px;
+`;
+
+export { Container, MainContainer };
