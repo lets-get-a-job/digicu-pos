@@ -44,6 +44,12 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
   }, []);
 
   const onSubmit = data => {
+    console.log(typeof data.letter_ok);
+    console.log(data.letter_ok);
+    let letter;
+    if (typeof data.letter_ok === 'string') {
+      if (data.letter_ok === 'true') letter = true;
+    } else letter = false;
     if (data.email === '') {
       alert('email을 입력하세요');
     } else if (data.plain_password === '') {
@@ -54,7 +60,7 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
       alert('비밀번호가 다릅니다.');
     } else {
       console.log('일치합니다');
-      setRegData({ reg_info: data });
+      setRegData({ reg_info: { ...data, letter_ok: letter } });
       setCurState('CompanyInfo');
     }
   };
