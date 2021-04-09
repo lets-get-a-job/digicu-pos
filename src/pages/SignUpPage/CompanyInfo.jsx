@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import DaumPostcode from 'react-daum-postcode';
 import { Modal } from '../../components/mocules';
-import { Container, Button, Input } from '../../components/atom';
-import { MainText, Form, InputContainer, Label } from './PersonInfo';
+import { Container, Button, Input, Form } from '../../components/atom';
+import { MainText, InputContainer, Label } from './PersonInfo';
 import { SignUp } from '../../repo/auth';
 
 export default function CompanyInfo({ setRegData, setCurState, regData }) {

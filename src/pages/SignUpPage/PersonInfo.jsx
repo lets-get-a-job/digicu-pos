@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Container, Text, Input, Button, Div } from '../../components/atom';
+import {
+  Container,
+  Text,
+  Input,
+  Button,
+  Div,
+  Form,
+} from '../../components/atom';
 
 export const MainText = styled(Text)`
   width: 100%;
   align: left;
   font-size: 32px;
   margin-bottom: 80px;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow-y: scroll;
 `;
 
 export const InputContainer = styled(Div)`

@@ -17,7 +17,7 @@ export default function SwitchBtn() {
     { path: '/', img: '', text: 'POS' },
     { path: '/', img: '', text: 'SALES' },
     { path: '/', img: '', text: 'PRODUCTS' },
-    { path: '/', img: '', text: 'CUPON' },
+    { path: '/cupon/currentcupon', img: '', text: 'CUPON' },
   ];
   return (
     <BtnContiner>

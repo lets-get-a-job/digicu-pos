@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, Input, Container } from '../atom';
 
-const InputBox = ({ label, type }) => (
-  <Container style={{ paddingTop: '20px' }}>
+const InputBox = ({ label, type, width }) => (
+  <Container style={{ width, paddingTop: '20px', alignItems: 'flex-start' }}>
     <Text style={{ width: '100%', marginTop: '20px', marginBottom: '10px' }}>
       {label}
     </Text>
@@ -14,6 +14,7 @@ const InputBox = ({ label, type }) => (
 InputBox.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
 export default InputBox;

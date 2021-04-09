@@ -6,8 +6,8 @@ const HeaderContainer = styled(Div)`
   width: auto;
   height: auto;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 30px;
+  right: 20vw;
 `;
 
 export default function Header() {
