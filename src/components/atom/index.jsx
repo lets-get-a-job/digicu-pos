@@ -4,6 +4,21 @@ import Input from './Input';
 import { Container, MainContainer } from './Container';
 import LogoImg from './logo';
 import Button from './Button';
+import Form from './Form';
+import { Table, Td, Th, Tr } from './Table';
 
 // eslint-disable-next-line import/prefer-default-export
-export { Div, Text, Input, Container, MainContainer, LogoImg, Button };
+export {
+  Div,
+  Text,
+  Input,
+  Container,
+  MainContainer,
+  LogoImg,
+  Button,
+  Form,
+  Table,
+  Td,
+  Th,
+  Tr,
+};

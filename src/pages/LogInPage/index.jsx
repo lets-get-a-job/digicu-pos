@@ -83,8 +83,8 @@ export default function LogInPage() {
             </p>
           </InfoBox>
           <LogInBox className="login box">
-            <InputBox label="E-MAIL" type="email" />
-            <InputBox label="PASSWORD" type="password" />
+            <InputBox label="E-MAIL" type="email" width="250px" />
+            <InputBox label="PASSWORD" type="password" width="250px" />
             <div style={{ margin: '30px 0px 45px 0px', width: '100%' }}>
               <CheckBox text="Remember me?" check={check} setCheck={setCheck} />
             </div>
