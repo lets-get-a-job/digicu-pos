@@ -1,4 +1,4 @@
-import InputBox from './InputBox';
+import InputBox from './Inputbox';
 import CheckBox from './CheckBox';
 import Modal from './Modal';
 import Header from './Header';

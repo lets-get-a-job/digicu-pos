@@ -16,7 +16,7 @@ export default function SwitchBtn() {
   const manageBtn = [
     { path: '/', img: '', text: 'POS' },
     { path: '/', img: '', text: 'SALES' },
-    { path: '/', img: '', text: 'PRODUCTS' },
+    { path: '/product/currentproduct', img: '', text: 'PRODUCTS' },
     { path: '/cupon/currentcupon', img: '', text: 'CUPON' },
   ];
   return (
