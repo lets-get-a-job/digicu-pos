@@ -12,7 +12,7 @@ const Panel = () => (
   <FormContainer>
     <Form style={{ width: '100%', alignItems: 'center' }}>
       <InputBox label="음식 이름" type="text" width="250px" />
-      <InputBox label="값" type="number" width="250px" />
+      <InputBox label="가격" type="number" width="250px" />
       <Button style={{ marginTop: '50px' }}>등록하기</Button>
     </Form>
   </FormContainer>
