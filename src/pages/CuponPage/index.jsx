@@ -8,7 +8,7 @@ import CurrentCupon from './Panel/CurrentCupon';
 import RegistCupon from './Panel/RegistCupon';
 import IssuedCupon from './Panel/IssuedCupon';
 
-const SubContainer = styled(Container)`
+export const SubContainer = styled(Container)`
   width: 70vw;
   min-width: 750px;
   margin: 0px 20vw;
@@ -18,7 +18,7 @@ const SubContainer = styled(Container)`
   justify-content: space-between;
 `;
 
-const Panel = styled.div`
+export const Panel = styled.div`
   width: 79%;
   min-width: 600px;
   height: auto;
