@@ -8,7 +8,6 @@ const Table = styled.table`
 const Tr = styled.tr``;
 
 const Th = styled.th`
-  width: 30%;
   border: 1px solid #cccccc;
 `;
 

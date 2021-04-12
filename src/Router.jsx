@@ -8,6 +8,7 @@ import {
   ManagePage,
   CuponPage,
   ProductPage,
+  SalePage,
 } from './pages';
 
 const Router = () => {
@@ -21,6 +22,7 @@ const Router = () => {
         { path: '/manage', component: ManagePage, exact: true },
         { path: '/cupon', component: CuponPage, exact: false },
         { path: '/product', component: ProductPage, exact: false },
+        { path: '/sale', component: SalePage, exact: true },
       ],
     },
   ];
