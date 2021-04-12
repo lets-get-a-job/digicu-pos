@@ -15,7 +15,7 @@ const BtnContiner = styled(Container)`
 export default function SwitchBtn() {
   const manageBtn = [
     { path: '/', img: '', text: 'POS' },
-    { path: '/', img: '', text: 'SALES' },
+    { path: '/sale', img: '', text: 'SALES' },
     { path: '/product/currentproduct', img: '', text: 'PRODUCTS' },
     { path: '/cupon/currentcupon', img: '', text: 'CUPON' },
   ];

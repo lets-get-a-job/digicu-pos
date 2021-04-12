@@ -5,6 +5,7 @@ import Header from './Header';
 import ImgBtn from './ImgBtn';
 import NavBar from './Nav';
 import MenuBar from './Menu';
+import TableBox from './TableBox';
 
 // eslint-disable-next-line import/prefer-default-export
-export { InputBox, CheckBox, Modal, Header, ImgBtn, NavBar, MenuBar };
+export { InputBox, CheckBox, Modal, Header, ImgBtn, NavBar, MenuBar, TableBox };

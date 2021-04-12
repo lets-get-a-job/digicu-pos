@@ -28,4 +28,6 @@ export const SignUp = async payload => {
   return req;
 };
 
-export const a = 1;
+export const SignIn = async payload => {
+  console.log(payload);
+};

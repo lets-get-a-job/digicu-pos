@@ -33,8 +33,8 @@ export default function NavBar() {
   const nav = [
     { text: 'POS', path: '/manage' },
     { text: 'SALES', path: '/manage' },
-    { text: 'PRODUCTS', path: '/manage' },
-    { text: 'CUPON', path: '/cupon' },
+    { text: 'PRODUCTS', path: '/product/currentproduct' },
+    { text: 'CUPON', path: '/cupon/currentcupon' },
   ];
   return (
     <NavConatinaer>
