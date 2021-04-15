@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import useUser from './hook/useUser';
 import {
   LogInPage,
   CPIPage,
@@ -45,5 +47,9 @@ const Router = () => {
     </BrowserRouter>
   );
 };
+
+function AuthorityRouter() {
+  const user = useUser();
+}
 
 export default React.memo(Router);

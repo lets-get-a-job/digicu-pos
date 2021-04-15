@@ -3,14 +3,6 @@ import axios from 'axios';
 import { defaultHeaders } from './_axios';
 
 export const SignUp = async payload => {
-  console.log(payload);
-  /* fetch('/users/company', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  }); */
   if (!payload) throw new Error('payload ERROR!');
   const req = await axios
     .post(
@@ -29,5 +21,23 @@ export const SignUp = async payload => {
 };
 
 export const SignIn = async payload => {
-  console.log(payload);
+  if (!payload) throw new Error('payload ERROR!');
+  const req = await axios
+    .post(
+      '/authentication/login',
+      { ...payload },
+      {
+        headers: {
+          ...defaultHeaders,
+        },
+      },
+    )
+    .catch(error => {
+      if (error.response.status === 401) {
+        alert('email인증이 완료되지 않은 계정입니다.');
+      } else if (error.response.status === 403) {
+        alert('email 혹은 password가 틀립니다.');
+      }
+    });
+  return req;
 };

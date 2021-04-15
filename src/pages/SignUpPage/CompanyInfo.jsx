@@ -54,7 +54,9 @@ export default function CompanyInfo({ setRegData, setCurState, regData }) {
       SignUp(regData)
         .then(data => {
           console.log(data);
-          alert('회원가입에 성공하셨습니다. 이메일 인증을 해주세요');
+          alert(
+            '회원가입 신청을 완료했습니다. 이메일 인증을 통해 회원가입을 마무리해주세요.',
+          );
           history.push('/');
         })
         .catch(error => {

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -9,6 +11,9 @@ import {
   Button,
 } from '../../components/atom';
 import { InputBox, CheckBox } from '../../components/mocules';
+import UserContext from '../../context/userContext';
+import { SignIn } from '../../repo/auth';
+import useUser from '../../hook/useUser';
 
 const LogInContainer = styled(Div)`
   flex-direction: row;
@@ -55,8 +60,39 @@ const SignInBtn = styled(Text)`
 `;
 
 export default function LogInPage() {
+  const [email, setEmail] = useState('');
+  const [pw, setPW] = useState('');
+
   const history = useHistory();
   const [check, setCheck] = useState(false);
+
+  const [user, setUser] = useUser();
+
+  const onEmailChange = e => {
+    setEmail(e.target.value);
+  };
+
+  const onPWChange = e => {
+    setPW(e.target.value);
+  };
+
+  const onBtnClick = () => {
+    if (email === '' || pw === '') {
+      alert('email과 password를 입력하세요');
+    } else {
+      const payload = { email, plain_password: pw };
+      SignIn(payload).then(d => {
+        const cur = +new Date() + d.data.expires_in;
+        setUser({ email, token: d.data.token, expireIn: cur });
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      history.push('/manage');
+    }
+  }, [user]);
 
   return (
     <>
@@ -83,12 +119,24 @@ export default function LogInPage() {
             </p>
           </InfoBox>
           <LogInBox className="login box">
-            <InputBox label="E-MAIL" type="email" width="250px" />
-            <InputBox label="PASSWORD" type="password" width="250px" />
+            <InputBox
+              label="E-MAIL"
+              type="email"
+              width="250px"
+              value={email}
+              onChange={onEmailChange}
+            />
+            <InputBox
+              label="PASSWORD"
+              type="password"
+              width="250px"
+              value={pw}
+              onChange={onPWChange}
+            />
             <div style={{ margin: '30px 0px 45px 0px', width: '100%' }}>
               <CheckBox text="Remember me?" check={check} setCheck={setCheck} />
             </div>
-            <Button>로그인</Button>
+            <Button onClick={onBtnClick}>로그인</Button>
             <SignInBtn onClick={() => history.push('/cpi')}>회원가입</SignInBtn>
           </LogInBox>
         </LogInContainer>
