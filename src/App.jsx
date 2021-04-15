@@ -2,6 +2,7 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import Router from './Router';
+import UserContextProvider from './hoc/UserContextProvider';
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
@@ -26,8 +27,10 @@ body{
 function App() {
   return (
     <>
-      <Router />
-      <GlobalStyles />
+      <UserContextProvider>
+        <Router />
+        <GlobalStyles />
+      </UserContextProvider>
     </>
   );
 }
