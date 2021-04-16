@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { defaultHeaders } from './_axios';
 
-export function RegistCupon(accessToken, payload) {
+export function RegistCoupon(accessToken, payload) {
   if (!payload) throw new Error('payload ERROR!');
   console.log(payload);
   console.log(accessToken);

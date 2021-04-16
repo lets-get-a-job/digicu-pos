@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text, Container, Table, Tr, Th, Td } from '../../../components/atom';
 
-const CurCuContainer = styled(Container)`
+const CurCouContainer = styled(Container)`
   padding-top: 10px;
   max-height: 1400px;
   overflow: scroll;
@@ -11,7 +11,7 @@ const CurCuContainer = styled(Container)`
 
 export default function CurrentProduct() {
   return (
-    <CurCuContainer>
+    <CurCouContainer>
       <Text
         style={{ fontWeight: 'bold', fontSize: '1.8vw', marginBottom: '10px' }}
       >
@@ -43,6 +43,6 @@ export default function CurrentProduct() {
           </Tr>
         </tbody>
       </Table>
-    </CurCuContainer>
+    </CurCouContainer>
   );
 }

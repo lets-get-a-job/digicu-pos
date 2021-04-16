@@ -5,10 +5,10 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-export default function PanelSwitch({ cuponPanels }) {
+export default function PanelSwitch({ couponPanels }) {
   return (
     <Switch>
-      {cuponPanels.map((v, i) => (
+      {couponPanels.map((v, i) => (
         <Route key={i} path={v.path} component={v.component} />
       ))}
     </Switch>
@@ -16,5 +16,5 @@ export default function PanelSwitch({ cuponPanels }) {
 }
 
 PanelSwitch.propTypes = {
-  cuponPanels: PropTypes.array.isRequired,
+  couponPanels: PropTypes.array.isRequired,
 };

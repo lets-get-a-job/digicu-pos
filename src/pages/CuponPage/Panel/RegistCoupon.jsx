@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container, Form, Button } from '../../../components/atom';
 import { InputBox } from '../../../components/mocules';
-import { RegistCupon } from '../../../repo/cupon';
+import { RegistCoupon } from '../../../repo/coupon';
 import useUser from '../../../hook/useUser';
 
 const FormContainer = styled(Container)`
@@ -14,7 +14,6 @@ const FormContainer = styled(Container)`
 // 주인, 쿠폰이름, 값, 생성일, 타입, 유효기간
 const Panel = () => {
   const [user, setUset] = useUser();
-
   const [name, setName] = useState('');
   const [value, setValue] = useState('');
   const [goal, setGoal] = useState('');
@@ -30,7 +29,7 @@ const Panel = () => {
       type,
       period: parseInt(period),
     };
-    RegistCupon(user.token, payload);
+    RegistCoupon(user.token, payload);
   };
 
   useEffect(() => {
