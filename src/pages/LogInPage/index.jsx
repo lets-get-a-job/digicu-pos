@@ -81,10 +81,18 @@ export default function LogInPage() {
       alert('email과 password를 입력하세요');
     } else {
       const payload = { email, plain_password: pw };
-      SignIn(payload).then(d => {
-        const cur = +new Date() + d.data.expires_in;
-        setUser({ email, token: d.data.token, expireIn: cur });
-      });
+      SignIn(payload)
+        .then(d => {
+          const cur = +new Date() + d.data.expires_in;
+          setUser({ email, token: d.data.token, expireIn: cur });
+        })
+        .catch(error => {
+          if (error.response.status === 401) {
+            alert('email인증이 완료되지 않은 계정입니다.');
+          } else if (error.response.status === 403) {
+            alert('email 혹은 password가 틀립니다.');
+          }
+        });
     }
   };
 
