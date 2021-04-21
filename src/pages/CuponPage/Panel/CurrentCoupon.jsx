@@ -1,7 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
-import { Text, Container, Table, Tr, Th, Td } from '../../../components/atom';
+import {
+  Text,
+  Container,
+  Table,
+  Tr,
+  Th,
+  Td,
+  Button,
+} from '../../../components/atom';
+import useUser from '../../../hook/useUser';
+import { DeleteCoupon } from '../../../repo/coupon';
 
 const CurCouContainer = styled(Container)`
   padding-top: 10px;
@@ -10,6 +20,10 @@ const CurCouContainer = styled(Container)`
 `;
 
 export default function CurrentCoupon() {
+  const [user, setUser] = useUser();
+  const onClick = () => {
+    DeleteCoupon(user.token, 3);
+  };
   return (
     <CurCouContainer>
       <Text
@@ -43,6 +57,7 @@ export default function CurrentCoupon() {
           </Tr>
         </tbody>
       </Table>
+      <Button onClick={onClick}>버튼</Button>
     </CurCouContainer>
   );
 }

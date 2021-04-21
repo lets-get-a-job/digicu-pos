@@ -30,6 +30,7 @@ const Panel = () => {
       period: parseInt(period),
     };
     RegistCoupon(user.token, payload);
+    alert('쿠폰이 성공적으로 등록되었습니다.');
   };
 
   useEffect(() => {

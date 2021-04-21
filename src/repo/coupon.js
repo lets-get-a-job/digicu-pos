@@ -4,20 +4,26 @@ import { defaultHeaders } from './_axios';
 
 export function RegistCoupon(accessToken, payload) {
   if (!payload) throw new Error('payload ERROR!');
-  console.log(payload);
-  console.log(accessToken);
-  const Token = `Bearer ${accessToken}`;
-  console.log(Token);
+  const req = axios.post(
+    '/coupon/coupon_spec',
+    { ...payload },
+    {
+      headers: { ...defaultHeaders, Authorization: accessToken },
+    },
+  );
+}
 
-  const req = axios
-    .post(
-      '/coupon/coupon_spec',
-      { ...payload },
-      {
-        headers: { ...defaultHeaders, Authorization: Token },
-      },
-    )
-    .then(d => console.log(d));
+export function InquiryCoupon(accessToken, payload) {
+  if (!payload) throw new Error('payload ERROR!');
+}
+
+export function DeleteCoupon(accessToken, id) {
+  if (!id) throw new Error('id ERROR!');
+  const req = axios.delete(`/coupon/coupon_spec/${id}`, {
+    headers: { ...defaultHeaders, Authorization: accessToken },
+  });
+
+  return req;
 }
 
 export const a = 1;

@@ -6,6 +6,8 @@ export const defaultHeaders = {
   'Access-Control-Allow-Origin': '*',
 };
 
+export const MakeAccessToken = token => `Bearer ${token}`;
+
 function init() {
   axios.defaults.headers = defaultHeaders;
   axios.defaults.baseURL =

@@ -49,7 +49,7 @@ const Router = () => {
 };
 
 function AuthorityRouter() {
-  const user = useUser();
+  const [user, setUser] = useUser();
 }
 
 export default React.memo(Router);
