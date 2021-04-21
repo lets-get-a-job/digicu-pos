@@ -2,9 +2,9 @@
 import axios from 'axios';
 import { defaultHeaders } from './_axios';
 
-export function RegistCoupon(accessToken, payload) {
+export async function RegistCoupon(accessToken, payload) {
   if (!payload) throw new Error('payload ERROR!');
-  const req = axios.post(
+  const req = await axios.post(
     '/coupon/coupon_spec',
     { ...payload },
     {
@@ -13,17 +13,19 @@ export function RegistCoupon(accessToken, payload) {
   );
 }
 
-export function InquiryCoupon(accessToken, payload) {
-  if (!payload) throw new Error('payload ERROR!');
-}
+export const InquiryCoupon = async (accessToken, email) => {
+  if (!email) throw new Error('payload ERROR!');
+  const req = await axios.get(`/coupon/coupon_spec?email=${email}`, {
+    headers: { ...defaultHeaders, Authorization: accessToken },
+  });
+  return req;
+};
 
-export function DeleteCoupon(accessToken, id) {
+export async function DeleteCoupon(accessToken, id) {
   if (!id) throw new Error('id ERROR!');
-  const req = axios.delete(`/coupon/coupon_spec/${id}`, {
+  const req = await axios.delete(`/coupon/coupon_spec/${id}`, {
     headers: { ...defaultHeaders, Authorization: accessToken },
   });
 
   return req;
 }
-
-export const a = 1;

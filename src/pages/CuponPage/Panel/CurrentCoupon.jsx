@@ -1,29 +1,52 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   Text,
   Container,
   Table,
+  Thead,
+  Tbody,
   Tr,
   Th,
   Td,
   Button,
 } from '../../../components/atom';
 import useUser from '../../../hook/useUser';
-import { DeleteCoupon } from '../../../repo/coupon';
+import { InquiryCoupon } from '../../../repo/coupon';
+import { Modal } from '../../../components/mocules';
+import Detail from './Modal/CouponDetail';
 
 const CurCouContainer = styled(Container)`
-  padding-top: 10px;
+  padding: 10px 10px;
   max-height: 1400px;
   overflow: scroll;
 `;
 
+const DetailBtn = styled(Button)`
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: red;
+  font-size: 14px;
+  :hover {
+  }
+`;
+
 export default function CurrentCoupon() {
   const [user, setUser] = useUser();
-  const onClick = () => {
-    DeleteCoupon(user.token, 3);
-  };
+  const [coupon, setCoupon] = useState();
+  const [status, setStatue] = useState('PENDING');
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    InquiryCoupon(user.token, user.email).then(d => {
+      setCoupon(d.data);
+      setStatue('SUCCESS');
+    });
+  }, []);
+
   return (
     <CurCouContainer>
       <Text
@@ -32,32 +55,47 @@ export default function CurrentCoupon() {
         현재 등록 쿠폰
       </Text>
       <Table>
-        <thead>
-          <Tr>
-            <Th>#</Th>
-            <Th>쿠폰 내용</Th>
-            <Th>타입</Th>
+        <Thead>
+          <Tr bgc="rgba(128, 128, 128, 0.2)">
+            <Th width="10%">#</Th>
+            <Th width="30%">쿠폰 내용</Th>
+            <Th width="20%">가치</Th>
+            <Th width="20%">타입</Th>
+            <Th width="20%" />
           </Tr>
-        </thead>
-        <tbody>
-          <Tr>
-            <Td>d</Td>
-            <Td>d</Td>
-            <Td>d</Td>
-          </Tr>
-          <Tr>
-            <Td>d</Td>
-            <Td>d</Td>
-            <Td>d</Td>
-          </Tr>
-          <Tr>
-            <Td>d</Td>
-            <Td>d</Td>
-            <Td>d</Td>
-          </Tr>
-        </tbody>
+        </Thead>
+        <Tbody>
+          {status === 'SUCCESS'
+            ? coupon.map((v, i) => (
+                // eslint-disable-next-line react/jsx-indent
+                <Tr key={i}>
+                  <Td>{i + 1}</Td>
+                  <Td>{v.name}</Td>
+                  <Td>{v.value}</Td>
+                  <Td>{v.type}</Td>
+                  <Td style={{ textAlign: 'center' }}>
+                    <DetailBtn
+                      onClick={() => {
+                        setModal(true);
+                        console.log(v.id);
+                      }}
+                    >
+                      자세히보기
+                    </DetailBtn>
+                  </Td>
+                </Tr>
+              ))
+            : '...로딩중'}
+        </Tbody>
       </Table>
-      <Button onClick={onClick}>버튼</Button>
+      <Modal
+        visible={modal}
+        onCloseBtnClicked={() => {
+          setModal(false);
+        }}
+      >
+        <Detail />
+      </Modal>
     </CurCouContainer>
   );
 }

@@ -21,6 +21,7 @@ const Tbody = styled.tbody``;
 const Tr = styled.tr`
   padding: 10px;
   border: none;
+  background-color: ${props => props.bgc};
 `;
 
 const Th = styled.th`
@@ -42,26 +43,7 @@ const Td = styled.th`
   text-align: left;
   padding-right: 5px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.4);
-  background-color: ${props => props.bgc};
 `;
-
-/*
-<Table>
-    <Thead>
-      <Tr>
-        <Th width="10%">asd</Th>
-        <Th>asd</Th>
-        <Th>asd</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      <Tr>
-        <Td bgc="rgba(128, 128, 128, 0.2)">dd</Td>
-        <Td>dd</Td>
-        <Td>dd</Td>
-      </Tr>
-    </Tbody>
-  </Table> */
 
 const TableBox = ({ list }) => (
   <Table>
@@ -90,11 +72,9 @@ const TableBox = ({ list }) => (
                   </Tr>
                 );
               return (
-                <Tr key={csi}>
+                <Tr bgc="rgba(128, 128, 128, 0.2)" key={csi}>
                   {cs.content.map((c, ci) => (
-                    <Td bgc="rgba(128, 128, 128, 0.2)" key={ci}>
-                      {c.text}
-                    </Td>
+                    <Td key={ci}>{c.text}</Td>
                   ))}
                 </Tr>
               );
