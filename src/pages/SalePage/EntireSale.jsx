@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Text } from '../../components/atom';
+import { Container, Text, Button } from '../../components/atom';
 import { TableBox } from '../../components/mocules';
 
 const EntireContainer = styled(Container)`
@@ -42,6 +42,9 @@ const SaleContainer = styled(Container)`
 `;
 
 export default function EntireSale() {
+  const date = new Date();
+  const month = (date.getMonth() + 1).toString();
+  const day = date.getDate();
   const list = [
     {
       title: 'head',
@@ -93,21 +96,35 @@ export default function EntireSale() {
   return (
     <EntireContainer>
       <DateContainer>
-        <div
+        <Button
           style={{
             width: '50px',
             height: '50px',
-            backgroundColor: 'black',
+            background: 'none',
+            margin: '20px',
+            color: 'black',
+            fontSize: '50px',
+            padding: '0px',
+            lineHeight: '50px',
           }}
-        />
-        <DateText>4/22</DateText>
-        <div
+        >
+          {'<'}
+        </Button>
+        <DateText>{`${month} / ${day}`}</DateText>
+        <Button
           style={{
             width: '50px',
             height: '50px',
-            backgroundColor: 'black',
+            background: 'none',
+            margin: '20px',
+            color: 'black',
+            fontSize: '50px',
+            padding: '0px',
+            lineHeight: '50px',
           }}
-        />
+        >
+          {'>'}
+        </Button>
       </DateContainer>
       <SaleContainer>
         <TableBox list={list} />
