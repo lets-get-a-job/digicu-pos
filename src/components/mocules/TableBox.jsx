@@ -80,13 +80,25 @@ const TableBox = ({ list }) => (
       if (t.title === 'body') {
         return (
           <Tbody key={i}>
-            {t.contents.map((cs, csi) => (
-              <Tr key={csi}>
-                {cs.content.map((c, ci) => (
-                  <Td key={ci}>{c.text}</Td>
-                ))}
-              </Tr>
-            ))}
+            {t.contents.map((cs, csi) => {
+              if (csi % 2 === 1)
+                return (
+                  <Tr key={csi}>
+                    {cs.content.map((c, ci) => (
+                      <Td key={ci}>{c.text}</Td>
+                    ))}
+                  </Tr>
+                );
+              return (
+                <Tr key={csi}>
+                  {cs.content.map((c, ci) => (
+                    <Td bgc="rgba(128, 128, 128, 0.2)" key={ci}>
+                      {c.text}
+                    </Td>
+                  ))}
+                </Tr>
+              );
+            })}
           </Tbody>
         );
       }
