@@ -37,15 +37,21 @@ const DetailBtn = styled(Button)`
 export default function CurrentCoupon() {
   const [user, setUser] = useUser();
   const [coupon, setCoupon] = useState();
-  const [status, setStatue] = useState('PENDING');
+  const [status, setStatus] = useState('PENDING');
   const [modal, setModal] = useState(false);
+  const [isClose, setIsClose] = useState(false);
+  const [couponId, setCouponId] = useState(0);
+  const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
+    setStatus('PENDING');
     InquiryCoupon(user.token, user.email).then(d => {
+      console.log('불러오는중');
       setCoupon(d.data);
-      setStatue('SUCCESS');
+      setStatus('SUCCESS');
+      setIsChange(false);
     });
-  }, []);
+  }, [isChange]);
 
   return (
     <CurCouContainer>
@@ -65,36 +71,48 @@ export default function CurrentCoupon() {
           </Tr>
         </Thead>
         <Tbody>
-          {status === 'SUCCESS'
-            ? coupon.map((v, i) => (
-                // eslint-disable-next-line react/jsx-indent
-                <Tr key={i}>
-                  <Td>{i + 1}</Td>
-                  <Td>{v.name}</Td>
-                  <Td>{v.value}</Td>
-                  <Td>{v.type}</Td>
-                  <Td style={{ textAlign: 'center' }}>
-                    <DetailBtn
-                      onClick={() => {
-                        setModal(true);
-                        console.log(v.id);
-                      }}
-                    >
-                      자세히보기
-                    </DetailBtn>
-                  </Td>
-                </Tr>
-              ))
-            : '...로딩중'}
+          {status === 'SUCCESS' ? (
+            coupon.map((v, i) => (
+              // eslint-disable-next-line react/jsx-indent
+              <Tr key={i}>
+                <Td>{i + 1}</Td>
+                <Td>{v.name}</Td>
+                <Td>{v.value}</Td>
+                <Td>{v.type}</Td>
+                <Td style={{ textAlign: 'center' }}>
+                  <DetailBtn
+                    onClick={() => {
+                      setModal(true);
+                      setCouponId(v.id);
+                    }}
+                  >
+                    자세히보기
+                  </DetailBtn>
+                </Td>
+              </Tr>
+            ))
+          ) : (
+            <Tr>
+              <Td>...로딩중</Td>
+            </Tr>
+          )}
         </Tbody>
       </Table>
       <Modal
         visible={modal}
         onCloseBtnClicked={() => {
           setModal(false);
+          setIsClose(true);
         }}
       >
-        <Detail />
+        <Detail
+          isClose={isClose}
+          setIsClose={setIsClose}
+          couponId={couponId}
+          setCouponId={setCouponId}
+          setModal={setModal}
+          setIsChange={setIsChange}
+        />
       </Modal>
     </CurCouContainer>
   );

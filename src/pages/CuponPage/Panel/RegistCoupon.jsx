@@ -48,17 +48,17 @@ const Panel = () => {
         />
         <InputBox
           label="가격"
-          type="number"
+          type="text"
           width="250px"
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value.replace(/[^0-9]/g, ''))}
         />
         <InputBox
           label="필요수량"
-          type="number"
+          type="text"
           width="250px"
           value={goal}
-          onChange={e => setGoal(e.target.value)}
+          onChange={e => setGoal(e.target.value.replace(/[^0-9]/g, ''))}
         />
         <select
           style={{ marginTop: '20px' }}
