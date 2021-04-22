@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { Header, NavBar, MenuBar } from '../../components/mocules';
 import { MainContainer, Container } from '../../components/atom';
 import PanelSwitch from './PanelSwitch';
-import CurrentCupon from './Panel/CurrentCupon';
-import RegistCupon from './Panel/RegistCupon';
-import IssuedCupon from './Panel/IssuedCupon';
+import CurrentCoupon from './Panel/CurrentCoupon';
+import RegistCoupon from './Panel/RegistCoupon';
+import IssuedCoupon from './Panel/IssuedCoupon';
 
 export const SubContainer = styled(Container)`
   width: 70vw;
@@ -36,17 +36,17 @@ export default function Page() {
     {
       text: '현재 등록 쿠폰',
       path: '/cupon/currentcupon',
-      component: CurrentCupon,
+      component: CurrentCoupon,
     },
     {
       text: '새 쿠폰 등록하기',
       path: '/cupon/registcupon',
-      component: RegistCupon,
+      component: RegistCoupon,
     },
     {
       text: '쿠폰 발급 내역',
       path: '/cupon/issuedcupon',
-      component: IssuedCupon,
+      component: IssuedCoupon,
     },
   ];
   return (
@@ -57,7 +57,7 @@ export default function Page() {
         <SubContainer>
           <MenuBar menus={menus} />
           <Panel>
-            <PanelSwitch cuponPanels={menus} />
+            <PanelSwitch couponPanels={menus} />
           </Panel>
         </SubContainer>
       </MainContainer>

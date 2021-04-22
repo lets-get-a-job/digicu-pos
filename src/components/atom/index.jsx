@@ -5,7 +5,7 @@ import { Container, MainContainer } from './Container';
 import LogoImg from './logo';
 import Button from './Button';
 import Form from './Form';
-import { Table, Td, Th, Tr } from './Table';
+import { Table, Thead, Tbody, Td, Th, Tr } from './Table';
 
 // eslint-disable-next-line import/prefer-default-export
 export {
@@ -18,6 +18,8 @@ export {
   Button,
   Form,
   Table,
+  Thead,
+  Tbody,
   Td,
   Th,
   Tr,
