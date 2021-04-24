@@ -17,12 +17,12 @@ import {
 
 const Router = () => {
   const pages = [
-        { path: '/cpi', component: CPIPage, exact: true },
-        { path: '/signup', component: SignUpPage, exact: true },
-        { path: '/manage', component: ManagePage, exact: true },
-        { path: '/cupon', component: CuponPage, exact: false },
-        { path: '/product', component: ProductPage, exact: false },
-        { path: '/sale', component: SalePage, exact: true },
+    { path: '/cpi', component: CPIPage, exact: true },
+    { path: '/signup', component: SignUpPage, exact: true },
+    { path: '/manage', component: ManagePage, exact: true },
+    { path: '/cupon', component: CuponPage, exact: false },
+    { path: '/product', component: ProductPage, exact: false },
+    { path: '/sale', component: SalePage, exact: true },
   ];
   return (
     <BrowserRouter>
@@ -35,20 +35,20 @@ const Router = () => {
             exact={v.exact}
             component={v.component}
           />
-        )
+        );
       })}
     </BrowserRouter>
   );
 };
 
-function AuthorityRouter({component, ...rest}) {
+function AuthorityRouter({ component, ...rest }) {
   const [user, setUser] = useUser();
 
-  return <Route {...rest} component={user ? component : LogInPage} />
+  return <Route {...rest} component={user ? component : LogInPage} />;
 }
 
 AuthorityRouter.propTypes = {
   component: PropTypes.func.isRequired,
-}
+};
 
 export default React.memo(Router);

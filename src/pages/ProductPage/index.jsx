@@ -7,7 +7,6 @@ import PanelSwitch from './PanelSwitch';
 import CurrentProduct from './Panel/CurrentProduct';
 import RegistProduct from './Panel/RegistProduct';
 
- 
 export default function ProductPage() {
   const menus = [
     {
@@ -37,4 +36,3 @@ export default function ProductPage() {
     </>
   );
 }
-

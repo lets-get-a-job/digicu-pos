@@ -18,11 +18,11 @@ const MainContainer = styled(Container)`
   overflow: scroll;
 `;
 
-export default function SalePage () {
+export default function SalePage() {
   return (
     <MainContainer>
       <EntireSale />
       <PartialSale />
     </MainContainer>
-  )
-};
+  );
+}

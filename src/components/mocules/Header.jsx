@@ -21,19 +21,25 @@ const LogoutBtn = styled(Div)`
   border-radius: 3px;
   cursor: pointer;
   :hover {
-    background-color:  rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
-`
+`;
 
 export default function Header() {
-
   const history = useHistory();
   const [user, setUser] = useUser();
 
-  return <HeaderContainer>헤더입니다.
-    <LogoutBtn onClick={() => {
-      localStorage.removeItem('user');
-      window.location.reload();
-  }}>로그아웃</LogoutBtn>
-  </HeaderContainer>;
+  return (
+    <HeaderContainer>
+      헤더입니다.
+      <LogoutBtn
+        onClick={() => {
+          localStorage.removeItem('user');
+          window.location.reload();
+        }}
+      >
+        로그아웃
+      </LogoutBtn>
+    </HeaderContainer>
+  );
 }
