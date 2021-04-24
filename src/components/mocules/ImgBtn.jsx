@@ -9,7 +9,7 @@ import { Container, Text } from '../atom';
 const ImgContainer = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
-  background-color: #d8e2f3;
+
   background-image: url(${props => props.url});
   background-size: contain;
   background-repeat: no-repeat;
@@ -35,7 +35,7 @@ export default function ImgBtn({ width, height, url, path, boxShadow, text }) {
         boxShadow={boxShadow}
       />
       {text && (
-        <Text style={{ marginTop: '30px', fontSize: '2vw' }}>{text}</Text>
+        <Text style={{ marginTop: '30px', fontSize: '1vw' }}>{text}</Text>
       )}
     </Container>
   );

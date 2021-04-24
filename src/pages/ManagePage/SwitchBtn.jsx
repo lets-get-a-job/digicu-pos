@@ -12,7 +12,9 @@ import COUPON from '../../assets/COUPON.png';
 const BtnContiner = styled(Container)`
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding-left: 15vw;
+  padding-right: 15vw;
 `;
 
 export default function SwitchBtn() {
@@ -29,9 +31,9 @@ export default function SwitchBtn() {
           key={i}
           path={v.path}
           url={v.img}
-          width="20vw"
-          height="20vw"
-          boxShadow="1vw 1vw 1vw rgba(0, 0, 0, 0.4)"
+          width="10vw"
+          height="10vw"
+          boxShadow="0px 0px 5px rgba(0, 0, 0, 0.4)"
           text={v.text}
         />
       ))}

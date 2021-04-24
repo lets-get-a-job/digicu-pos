@@ -1,7 +1,9 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import useUser from './hook/useUser';
 import {
   LogInPage,
@@ -15,41 +17,38 @@ import {
 
 const Router = () => {
   const pages = [
-    {
-      mode: 'route',
-      paths: [
-        { path: '/', component: LogInPage, exact: true },
         { path: '/cpi', component: CPIPage, exact: true },
         { path: '/signup', component: SignUpPage, exact: true },
         { path: '/manage', component: ManagePage, exact: true },
         { path: '/cupon', component: CuponPage, exact: false },
         { path: '/product', component: ProductPage, exact: false },
         { path: '/sale', component: SalePage, exact: true },
-      ],
-    },
   ];
   return (
     <BrowserRouter>
-      {pages.map(v => {
-        if (v.mode === 'route') {
-          return v.paths.map((data, i) => (
-            <Route
-              key={i}
-              path={data.path}
-              exact={data.exact}
-              component={data.component}
-            />
-          ));
-        }
-
-        return null;
+      <Route path="/" exact component={LogInPage} />
+      {pages.map((v, i) => {
+        return (
+          <AuthorityRouter
+            key={v.path}
+            path={v.path}
+            exact={v.exact}
+            component={v.component}
+          />
+        )
       })}
     </BrowserRouter>
   );
 };
 
-function AuthorityRouter() {
+function AuthorityRouter({component, ...rest}) {
   const [user, setUser] = useUser();
+
+  return <Route {...rest} component={user ? component : LogInPage} />
+}
+
+AuthorityRouter.propTypes = {
+  component: PropTypes.func.isRequired,
 }
 
 export default React.memo(Router);

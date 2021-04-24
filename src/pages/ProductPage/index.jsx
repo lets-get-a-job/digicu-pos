@@ -7,7 +7,8 @@ import PanelSwitch from './PanelSwitch';
 import CurrentProduct from './Panel/CurrentProduct';
 import RegistProduct from './Panel/RegistProduct';
 
-function Page() {
+ 
+export default function ProductPage() {
   const menus = [
     {
       text: '현재 등록 음식',
@@ -37,4 +38,3 @@ function Page() {
   );
 }
 
-export default React.memo(Page);
