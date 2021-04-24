@@ -4,7 +4,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container } from '../../components/atom';
 import { ImgBtn } from '../../components/mocules';
-import SALES from '../../assets/SALES.png';
+import POS from '../../assets/POS.png';
+import SALE from '../../assets/SALE.png';
+import MENU from '../../assets/MENU.png';
+import COUPON from '../../assets/COUPON.png';
 
 const BtnContiner = styled(Container)`
   width: 100%;
@@ -14,10 +17,10 @@ const BtnContiner = styled(Container)`
 
 export default function SwitchBtn() {
   const manageBtn = [
-    { path: '/', img: '', text: 'POS' },
-    { path: '/sale', img: '', text: 'SALES' },
-    { path: '/product/currentproduct', img: '', text: 'PRODUCTS' },
-    { path: '/cupon/currentcupon', img: '', text: 'CUPON' },
+    { path: '/', img: POS, text: 'POS' },
+    { path: '/sale', img: SALE, text: 'SALES' },
+    { path: '/product/currentproduct', img: MENU, text: 'PRODUCTS' },
+    { path: '/cupon/currentcupon', img: COUPON, text: 'COUPON' },
   ];
   return (
     <BtnContiner>
