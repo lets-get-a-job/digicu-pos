@@ -4,18 +4,15 @@ import { defaultHeaders } from './_axios';
 
 export const SignUp = async payload => {
   if (!payload) throw new Error('payload ERROR!');
-  const req = await axios
-    .post(
-      '/users/company',
-      { ...payload },
-      {
-        headers: {
-          ...defaultHeaders,
-        },
+  const req = await axios.post(
+    '/users/company',
+    { ...payload },
+    {
+      headers: {
+        ...defaultHeaders,
       },
-    )
-    .then(data => console.log(data))
-    .catch(e => console.log(e));
+    },
+  );
 
   return req;
 };

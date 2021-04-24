@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -44,12 +46,20 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
   }, []);
 
   const onSubmit = data => {
-    console.log(typeof data.letter_ok);
-    console.log(data.letter_ok);
-    let letter;
-    if (typeof data.letter_ok === 'string') {
-      if (data.letter_ok === 'true') letter = true;
-    } else letter = false;
+    if (data.letter_ok === 'true') {
+      const date = new Date();
+      const year = date.getFullYear().toString();
+      const month = date.getMonth() + 1;
+      let monthS;
+      if (month < 10) monthS = `0${month.toString()}`;
+      else monthS = month.toString();
+      const day = date.getDate();
+      let dayS;
+      if (day < 10) dayS = `0${day.toString()}`;
+      else dayS = day.toString();
+      console.log(`${year}-${monthS}-${dayS}`);
+      data.letter_ok = `${year}-${monthS}-${dayS}`;
+    } else data.letter_ok = false;
     if (data.email === '') {
       alert('email을 입력하세요');
     } else if (data.plain_password === '') {
@@ -60,7 +70,7 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
       alert('비밀번호가 다릅니다.');
     } else {
       console.log('일치합니다');
-      setRegData({ reg_info: { ...data, letter_ok: letter } });
+      setRegData({ reg_info: data });
       setCurState('CompanyInfo');
     }
   };

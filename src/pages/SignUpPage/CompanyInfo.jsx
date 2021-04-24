@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -24,6 +26,13 @@ export default function CompanyInfo({ setRegData, setCurState, regData }) {
 
   const onSubmit = data => {
     console.log(data);
+    if (data.company_homepage === '') {
+      data.company_homepage = null;
+    }
+    if (data.company_logo === '') {
+      data.company_logo = null;
+    }
+    console.log(!data.company_homepage);
     if (data.company_address === '') {
       alert('주소를 입력하세요');
     } else if (data.company_number.length !== 10) {
@@ -40,10 +49,8 @@ export default function CompanyInfo({ setRegData, setCurState, regData }) {
       alert('매장 전화 번호를 입력하세요');
     } else if (data.company_owner === '') {
       alert('점주를 입력하세요');
-    } else if (data.company_homepage === '') {
-      alert('홈페이지를 입력하세요');
     } else {
-      setRegData({ ...regData, company_info: data });
+      setRegData({ ...regData, company_info: { ...data } });
       setTrigger(true);
     }
   };
@@ -126,6 +133,16 @@ export default function CompanyInfo({ setRegData, setCurState, regData }) {
             />
           </InputContainer>
         ))}
+        <InputContainer>
+          <Label>회사 로고</Label>
+          <Input
+            style={{ width: '60%' }}
+            ref={register}
+            name="company_logo"
+            type="text"
+            borderBottom="1px solid #002060"
+          />
+        </InputContainer>
         <div style={{ display: 'flex' }}>
           <Button
             style={{ width: '150px' }}
