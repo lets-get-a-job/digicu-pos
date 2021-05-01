@@ -17,8 +17,6 @@ import {
 
 const Router = () => {
   const pages = [
-    { path: '/cpi', component: CPIPage, exact: true },
-    { path: '/signup', component: SignUpPage, exact: true },
     { path: '/manage', component: ManagePage, exact: true },
     { path: '/cupon', component: CuponPage, exact: false },
     { path: '/product', component: ProductPage, exact: false },
@@ -27,6 +25,8 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Route path="/" exact component={LogInPage} />
+      <Route path="/cpi" exact component={CPIPage} />
+      <Route path="/signup" exact component={SignUpPage} />
       {pages.map((v, i) => {
         return (
           <AuthorityRouter
