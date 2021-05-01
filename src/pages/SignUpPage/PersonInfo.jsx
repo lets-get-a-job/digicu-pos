@@ -59,7 +59,7 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
       else dayS = day.toString();
       console.log(`${year}-${monthS}-${dayS}`);
       data.letter_ok = `${year}-${monthS}-${dayS}`;
-    } else data.letter_ok = false;
+    } else data.letter_ok = null;
     if (data.email === '') {
       alert('email을 입력하세요');
     } else if (data.plain_password === '') {

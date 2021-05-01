@@ -18,11 +18,11 @@ const MainContainer = styled(Container)`
   overflow: scroll;
 `;
 
-const Page = () => (
-  <MainContainer>
-    <EntireSale />
-    <PartialSale />
-  </MainContainer>
-);
-
-export default React.memo(Page);
+export default function SalePage() {
+  return (
+    <MainContainer>
+      <EntireSale />
+      <PartialSale />
+    </MainContainer>
+  );
+}
