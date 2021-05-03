@@ -13,6 +13,7 @@ import {
   CuponPage,
   ProductPage,
   SalePage,
+  POSPage,
 } from './pages';
 
 const Router = () => {
@@ -21,12 +22,14 @@ const Router = () => {
     { path: '/cupon', component: CuponPage, exact: false },
     { path: '/product', component: ProductPage, exact: false },
     { path: '/sale', component: SalePage, exact: true },
+    { path: '/pos', component: POSPage, exact: true },
   ];
   return (
     <BrowserRouter>
       <Route path="/" exact component={LogInPage} />
       <Route path="/cpi" exact component={CPIPage} />
       <Route path="/signup" exact component={SignUpPage} />
+      <Route path="/postmp" exact component={POSPage} />
       {pages.map((v, i) => {
         return (
           <AuthorityRouter

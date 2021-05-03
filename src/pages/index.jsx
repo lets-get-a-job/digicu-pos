@@ -6,6 +6,7 @@ import { default as ManagePage } from './ManagePage';
 import { default as CuponPage } from './CuponPage';
 import { default as ProductPage } from './ProductPage';
 import { default as SalePage } from './SalePage';
+import POSPage from './POSpage';
 
 // eslint-disable-next-line import/prefer-default-export
 export {
@@ -16,4 +17,5 @@ export {
   CuponPage,
   ProductPage,
   SalePage,
+  POSPage,
 };
