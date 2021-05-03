@@ -9,7 +9,7 @@ const MainContainer = styled(Container)`
   width: 35%;
   min-width: 450px;
   height: 55vh;
-  min-height: 550px;
+  min-height: 600px;
   padding: 5px;
   overflow: scroll;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);

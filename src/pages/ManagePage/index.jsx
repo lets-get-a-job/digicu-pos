@@ -8,8 +8,8 @@ import SwitchBtn from './SwitchBtn';
 export default function Page() {
   return (
     <>
-      <Header />
       <MainContainer>
+        <Header />
         <LogoImg
           style={{
             width: '20%',

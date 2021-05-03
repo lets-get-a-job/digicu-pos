@@ -20,7 +20,7 @@ const MainContainer = styled(Container)`
   width: 63%;
   min-width: 800px;
   height: 55vh;
-  min-height: 550px;
+  min-height: 600px;
   justify-content: space-between;
   over-flow: scroll;
 `;
@@ -47,8 +47,8 @@ const PaymentContainer = styled(Container)`
 
 const PayBtn = styled(Button)`
   width: 180px;
-  height: 14vh;
-  min-height: 140px;
+  height: 10vh;
+  min-height: 100px;
   background: rgba(128, 128, 128, 0.2);
   color: #002060;
   box-shadow: 0px 0px 4px 3px rgba(128, 128, 128, 0.7);

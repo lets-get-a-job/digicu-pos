@@ -9,9 +9,12 @@ const Container = styled.div`
 
 const MainContainer = styled(Container)`
   background-color: rgba(173, 173, 173, 0.13);
-  height: auto;
-  min-height: 100vh;
+  width: auto;
+  min-width: 1440px;
+  height: 100vh;
+  min-height: 900px;
   padding: 50px;
+  position: relative;
 `;
 
 export { Container, MainContainer };
