@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { MainContainer, Container } from '../../components/atom';
 import { Header } from '../../components/mocules';
 import PaymentWindow from './PaymentWindow';

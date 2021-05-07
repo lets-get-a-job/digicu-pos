@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Text,
   Container,
@@ -69,14 +71,17 @@ const TextSubContainer = styled(Container)`
   justify-content: space-between;
 `;
 
-export default function PaymentWindow() {
+function PaymentWindow({ menus }) {
   const payment = useContext(PaymentContext);
 
   useEffect(() => {
+    console.log(menus);
     payment.total = 10000;
     payment.sale = 2000;
     payment.pay = 8000;
   }, [payment]);
+
+  useEffect(() => {}, [menus]);
 
   return (
     <MainContainer>
@@ -87,8 +92,19 @@ export default function PaymentWindow() {
               <Th>#</Th>
               <Th>메뉴</Th>
               <Th>가격</Th>
+              <Th>수량</Th>
             </Tr>
           </Thead>
+          <Tbody>
+            {menus.map((v, i) => (
+              <Tr key={v.name + v.price}>
+                <Th>{i + 1}</Th>
+                <Th>{v.name}</Th>
+                <Th>{v.price}</Th>
+                <Th>{v.count}</Th>
+              </Tr>
+            ))}
+          </Tbody>
         </Table>
       </TableContainer>
       <PaymentContainer>
@@ -97,6 +113,7 @@ export default function PaymentWindow() {
           <TextSubContainer>
             <Text>총 금액 : </Text>
             <Text>{payment.total}</Text>
+            <Text>{menus}</Text>
           </TextSubContainer>
           <TextSubContainer>
             <Text>할인 금액 : </Text>
@@ -111,3 +128,13 @@ export default function PaymentWindow() {
     </MainContainer>
   );
 }
+
+PaymentWindow.propTypes = {
+  menus: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+function mapStateToProps(state) {
+  return { menus: state };
+}
+
+export default connect(mapStateToProps)(PaymentWindow);

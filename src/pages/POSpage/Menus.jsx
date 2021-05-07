@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Button, Container, Text } from '../../components/atom';
+import { addList, plusCount } from './store';
 
 const MainContainer = styled(Container)`
   display: flex;
@@ -33,7 +37,7 @@ const Label = styled(Text)`
   font-size: 40px;
 `;
 
-export default function Menus() {
+function Menus({ menuss, dispatch }) {
   const menus = [
     { name: '돈까스', price: '7000원' },
     { name: '물', price: '2000원' },
@@ -43,18 +47,34 @@ export default function Menus() {
     { name: '우동', price: '4000원' },
     { name: '김치찌개', price: '6000원' },
   ];
+
+  const menuClick = (name, price) => {
+    const idx = menuss.findIndex(element => element.name === name);
+    if (idx === -1) dispatch(addList({ name, price }));
+    else dispatch(plusCount(idx));
+
+    console.log(menuss);
+  };
+
   return (
     <MainContainer>
       {menus.map((v, i) => {
         if (i % 2 === 0)
           return (
-            <MenuContainer key={v.name + v.price}>
+            <MenuContainer
+              key={v.name + v.price}
+              onClick={() => menuClick(v.name, v.price)}
+            >
               <Text>{v.name}</Text>
               <Text>{v.price}</Text>
             </MenuContainer>
           );
         return (
-          <MenuContainer style={{ marginLeft: 'auto' }} key={v.name + v.price}>
+          <MenuContainer
+            style={{ marginLeft: 'auto' }}
+            key={v.name + v.price}
+            onClick={() => menuClick(v.name, v.price)}
+          >
             <Text>{v.name}</Text>
             <Text>{v.price}</Text>
           </MenuContainer>
@@ -72,3 +92,17 @@ export default function Menus() {
     </MainContainer>
   );
 }
+
+Menus.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  return { menuss: state };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menus);
