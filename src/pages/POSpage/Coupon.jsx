@@ -39,9 +39,7 @@ export default function Coupon() {
   useEffect(() => {
     setStatus('PENDING');
     InquiryCoupon(user.token, user.email).then(d => {
-      console.log('불러오는중');
       setCoupon(d.data);
-      console.log(coupon);
       setStatus('SUCCESS');
     });
   }, [user]);
@@ -55,14 +53,6 @@ export default function Coupon() {
             </CouponBtn>
           ))
         : '...로딩중'}
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
-      <CouponBtn>sad</CouponBtn>
     </CouponContainer>
   );
 }

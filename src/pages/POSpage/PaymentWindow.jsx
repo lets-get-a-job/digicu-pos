@@ -73,6 +73,7 @@ const TextSubContainer = styled(Container)`
 
 function PaymentWindow({ menus }) {
   const payment = useContext(PaymentContext);
+  const temp = [{ name: 'qq', price: '1000', count: '10' }];
 
   useEffect(() => {
     console.log(menus);
@@ -80,8 +81,6 @@ function PaymentWindow({ menus }) {
     payment.sale = 2000;
     payment.pay = 8000;
   }, [payment]);
-
-  useEffect(() => {}, [menus]);
 
   return (
     <MainContainer>
@@ -98,10 +97,10 @@ function PaymentWindow({ menus }) {
           <Tbody>
             {menus.map((v, i) => (
               <Tr key={v.name + v.price}>
-                <Th>{i + 1}</Th>
-                <Th>{v.name}</Th>
-                <Th>{v.price}</Th>
-                <Th>{v.count}</Th>
+                <Td>{i + 1}</Td>
+                <Td>{v.name}</Td>
+                <Td>{v.price}</Td>
+                <Td>{v.count}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -113,7 +112,6 @@ function PaymentWindow({ menus }) {
           <TextSubContainer>
             <Text>총 금액 : </Text>
             <Text>{payment.total}</Text>
-            <Text>{menus}</Text>
           </TextSubContainer>
           <TextSubContainer>
             <Text>할인 금액 : </Text>

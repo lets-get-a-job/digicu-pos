@@ -28,18 +28,18 @@ export const deleteList = id => ({
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD:
-      state.push({ ...action.data, count: 1 });
-      return state;
+      // state.push({ ...action.data, count: 1 });
+      return [...state, { ...action.data, count: 1 }];
     case PLUS:
       state[action.id].count++;
-      return state;
+      return [...state];
     case DELETE:
       state.splice(action.id, 1);
-      return state;
+      return [...state];
     case CLEAR:
       return [];
     default:
-      return state;
+      return [...state];
   }
 };
 
