@@ -1,8 +1,11 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable radix */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Text,
@@ -14,8 +17,10 @@ import {
   Th,
   Td,
   Button,
+  TableBtn,
 } from '../../components/atom';
 import PaymentContext from '../../context/paymentContext';
+import { deleteList, clearList } from './store';
 
 const MainContainer = styled(Container)`
   padding: 0px;
@@ -71,16 +76,17 @@ const TextSubContainer = styled(Container)`
   justify-content: space-between;
 `;
 
-function PaymentWindow({ menus }) {
+function PaymentWindow({ state, dispatch }) {
   const payment = useContext(PaymentContext);
-  const temp = [{ name: 'qq', price: '1000', count: '10' }];
 
-  useEffect(() => {
-    console.log(menus);
-    payment.total = 10000;
-    payment.sale = 2000;
-    payment.pay = 8000;
-  }, [payment]);
+  console.log(typeof state);
+  console.log(state);
+
+  const onClick = () => {
+    if (window.confirm('결제하시겠습니까?')) {
+      dispatch(clearList());
+    }
+  };
 
   return (
     <MainContainer>
@@ -92,34 +98,46 @@ function PaymentWindow({ menus }) {
               <Th>메뉴</Th>
               <Th>가격</Th>
               <Th>수량</Th>
+              <Th width="15%" />
             </Tr>
           </Thead>
           <Tbody>
-            {menus.map((v, i) => (
+            {state.menus.map((v, i) => (
               <Tr key={v.name + v.price}>
                 <Td>{i + 1}</Td>
                 <Td>{v.name}</Td>
                 <Td>{v.price}</Td>
                 <Td>{v.count}</Td>
+                <Td>
+                  <TableBtn
+                    onClick={() => {
+                      dispatch(
+                        deleteList({ id: i, price: v.price, count: v.count }),
+                      );
+                    }}
+                  >
+                    삭제
+                  </TableBtn>
+                </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </TableContainer>
       <PaymentContainer>
-        <PayBtn>결제하기</PayBtn>
+        <PayBtn onClick={onClick}>결제하기</PayBtn>
         <TextContainer>
           <TextSubContainer>
             <Text>총 금액 : </Text>
-            <Text>{payment.total}</Text>
+            <Text>{state.sum}</Text>
           </TextSubContainer>
           <TextSubContainer>
             <Text>할인 금액 : </Text>
-            <Text>{payment.sale}</Text>
+            <Text>{state.sale}</Text>
           </TextSubContainer>
           <TextSubContainer>
             <Text>합계 : </Text>
-            <Text>{payment.pay}</Text>
+            <Text>{state.total}</Text>
           </TextSubContainer>
         </TextContainer>
       </PaymentContainer>
@@ -128,11 +146,16 @@ function PaymentWindow({ menus }) {
 }
 
 PaymentWindow.propTypes = {
-  menus: PropTypes.arrayOf(PropTypes.object).isRequired,
+  state: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  return { menus: state };
+  return { state };
 }
 
-export default connect(mapStateToProps)(PaymentWindow);
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentWindow);

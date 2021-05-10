@@ -39,19 +39,19 @@ const Label = styled(Text)`
 
 function Menus({ menuss, dispatch }) {
   const menus = [
-    { name: '돈까스', price: '7000원' },
-    { name: '물', price: '2000원' },
-    { name: '라면', price: '3000원' },
-    { name: '떡라면', price: '5000원' },
-    { name: '제육덮밥', price: '6000원' },
-    { name: '우동', price: '4000원' },
-    { name: '김치찌개', price: '6000원' },
+    { name: '돈까스', price: 7000 },
+    { name: '물', price: 2000 },
+    { name: '라면', price: 3000 },
+    { name: '떡라면', price: 5000 },
+    { name: '제육덮밥', price: 6000 },
+    { name: '우동', price: 4000 },
+    { name: '김치찌개', price: 6000 },
   ];
 
   const menuClick = (name, price) => {
-    const idx = menuss.findIndex(element => element.name === name);
-    if (idx === -1) dispatch(addList({ name, price }));
-    else dispatch(plusCount(idx));
+    const id = menuss.findIndex(element => element.name === name);
+    if (id === -1) dispatch(addList({ name, price }));
+    else dispatch(plusCount({ id, price }));
 
     console.log(menuss);
   };
@@ -66,7 +66,7 @@ function Menus({ menuss, dispatch }) {
               onClick={() => menuClick(v.name, v.price)}
             >
               <Text>{v.name}</Text>
-              <Text>{v.price}</Text>
+              <Text>{v.price}원</Text>
             </MenuContainer>
           );
         return (
@@ -76,7 +76,7 @@ function Menus({ menuss, dispatch }) {
             onClick={() => menuClick(v.name, v.price)}
           >
             <Text>{v.name}</Text>
-            <Text>{v.price}</Text>
+            <Text>{v.price}원</Text>
           </MenuContainer>
         );
       })}
@@ -98,7 +98,7 @@ Menus.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { menuss: state };
+  return { menuss: state.menus };
 }
 
 function mapDispatchToProps(dispatch) {

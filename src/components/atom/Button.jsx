@@ -13,4 +13,13 @@ const Button = styled.button`
   border-radius: 5px;
 `;
 
-export default Button;
+const TableBtn = styled(Button)`
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: red;
+  font-size: 14px;
+  :hover {
+  }
+`;
+
+export { Button, TableBtn };

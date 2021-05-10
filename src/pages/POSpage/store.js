@@ -15,31 +15,50 @@ export const addList = data => ({
   data,
 });
 
-export const plusCount = id => ({
+export const plusCount = data => ({
   type: PLUS,
-  id,
+  data,
 });
 
-export const deleteList = id => ({
+export const deleteList = data => ({
   type: DELETE,
-  id,
+  data,
 });
 
-const reducer = (state = [], action) => {
+export const clearList = () => ({
+  type: CLEAR,
+});
+
+const initailState = {
+  sum: 0,
+  sale: 0,
+  total: 0,
+  menus: [],
+};
+
+const reducer = (state = initailState, action) => {
   switch (action.type) {
     case ADD:
-      // state.push({ ...action.data, count: 1 });
-      return [...state, { ...action.data, count: 1 }];
+      return {
+        ...state,
+        sum: state.sum + action.data.price,
+        total: state.total + action.data.price,
+        menus: [...state.menus, { ...action.data, count: 1 }],
+      };
     case PLUS:
-      state[action.id].count++;
-      return [...state];
+      state.menus[action.data.id].count++;
+      state.sum += action.data.price;
+      state.total += action.data.price;
+      return { ...state };
     case DELETE:
-      state.splice(action.id, 1);
-      return [...state];
+      state.menus.splice(action.data.id, 1);
+      state.sum -= action.data.price * action.data.count;
+      state.total -= action.data.price * action.data.count;
+      return { ...state };
     case CLEAR:
-      return [];
+      return initailState;
     default:
-      return [...state];
+      return { ...state };
   }
 };
 
