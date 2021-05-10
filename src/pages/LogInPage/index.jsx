@@ -84,7 +84,11 @@ export default function LogInPage() {
         .then(d => {
           console.log(d);
           const cur = +new Date() + d.data.expires_in;
-          setUser({ email, token: d.data.token, expireIn: cur });
+          setUser({
+            companyInfo: d.data.companyInfo,
+            token: d.data.token,
+            expireIn: cur,
+          });
         })
         .catch(error => {
           if (error.response.status === 401) {

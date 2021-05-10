@@ -4,7 +4,7 @@ import { createContext } from 'react';
 
 const UserContext = createContext({
   user: {
-    email: null,
+    companyInfo: null,
     token: null,
     expireIn: null,
   },
