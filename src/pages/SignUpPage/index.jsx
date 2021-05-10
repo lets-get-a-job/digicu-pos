@@ -17,6 +17,7 @@ const SignUpContainer = styled(Div)`
   border-radius: 15px;
   background-color: #002060;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  overflow: scroll;
 `;
 
 const SignUpBox = styled(Div)`

@@ -11,7 +11,6 @@ import {
   Button,
 } from '../../components/atom';
 import { InputBox, CheckBox } from '../../components/mocules';
-import UserContext from '../../context/userContext';
 import { SignIn } from '../../repo/auth';
 import useUser from '../../hook/useUser';
 
@@ -83,6 +82,7 @@ export default function LogInPage() {
       const payload = { email, plain_password: pw };
       SignIn(payload)
         .then(d => {
+          console.log(d);
           const cur = +new Date() + d.data.expires_in;
           setUser({ email, token: d.data.token, expireIn: cur });
         })

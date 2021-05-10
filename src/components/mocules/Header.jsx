@@ -2,6 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Div } from '../atom';
 import useUser from '../../hook/useUser';
 
@@ -9,8 +10,8 @@ const HeaderContainer = styled(Div)`
   width: auto;
   height: auto;
   position: absolute;
-  top: 30px;
-  right: 20vw;
+  top: ${props => (props.top ? props.top : '30px')};
+  right: ${props => (props.right ? props.right : '20vw')};
   flex-direction: row;
 `;
 
@@ -25,12 +26,12 @@ const LogoutBtn = styled(Div)`
   }
 `;
 
-export default function Header() {
+export default function Header({ top, right }) {
   const history = useHistory();
   const [user, setUser] = useUser();
 
   return (
-    <HeaderContainer>
+    <HeaderContainer top={top} right={right}>
       헤더입니다.
       <LogoutBtn
         onClick={() => {
@@ -43,3 +44,13 @@ export default function Header() {
     </HeaderContainer>
   );
 }
+
+Header.defaultProps = {
+  top: '30px',
+  right: '20vw',
+};
+
+Header.propTypes = {
+  top: PropTypes.string,
+  right: PropTypes.string,
+};

@@ -71,7 +71,7 @@ export default function EntireSale() {
             { text: '2' },
             { text: '피자' },
             { text: '10,000' },
-            { text: 'PM 14:30' },
+            { text: 'PM 14:45' },
           ],
         },
         {
@@ -79,15 +79,15 @@ export default function EntireSale() {
             { text: '3' },
             { text: '과자' },
             { text: '100,000' },
-            { text: 'PM 14:30' },
+            { text: 'PM 15:20' },
           ],
         },
         {
           content: [
             { text: '4' },
             { text: '이프로부족할때' },
-            { text: '100,000,000,000' },
-            { text: 'PM 14:30' },
+            { text: '1,000' },
+            { text: 'PM 16:30' },
           ],
         },
       ],
