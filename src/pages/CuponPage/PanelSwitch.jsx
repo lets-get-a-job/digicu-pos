@@ -1,7 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
-import React, { createElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 

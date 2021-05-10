@@ -45,7 +45,7 @@ export default function CurrentCoupon() {
 
   useEffect(() => {
     setStatus('PENDING');
-    InquiryCoupon(user.token, user.email).then(d => {
+    InquiryCoupon(user.token, user.companyInfo.email).then(d => {
       console.log('불러오는중');
       setCoupon(d.data);
       setStatus('SUCCESS');

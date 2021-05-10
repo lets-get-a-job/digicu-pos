@@ -38,7 +38,7 @@ export default function Coupon() {
 
   useEffect(() => {
     setStatus('PENDING');
-    InquiryCoupon(user.token, user.email).then(d => {
+    InquiryCoupon(user.token, user.companyInfo.email).then(d => {
       setCoupon(d.data);
       setStatus('SUCCESS');
     });
