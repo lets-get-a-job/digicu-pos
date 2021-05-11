@@ -6,6 +6,7 @@ import { Container, Form, Button } from '../../../components/atom';
 import { InputBox } from '../../../components/mocules';
 import { RegistMenu } from '../../../repo/menu';
 import useUser from '../../../hook/useUser';
+import date from '../../../date';
 
 const FormContainer = styled(Container)`
   margin: 0px;
@@ -18,23 +19,12 @@ const Panel = () => {
   const [stock, setStock] = useState('');
 
   const onClick = () => {
-    const date = new Date();
-    const year = date.getFullYear().toString();
-    const month = date.getMonth() + 1;
-    let monthS;
-    if (month < 10) monthS = `0${month.toString()}`;
-    else monthS = month.toString();
-    const day = date.getDate();
-    let dayS;
-    if (day < 10) dayS = `0${day.toString()}`;
-    else dayS = day.toString();
-    const cur = `${year}-${monthS}-${dayS}`;
     RegistMenu(user.token, {
-      company_number: parseInt('1234561234'),
+      company_number: user.companyInfo.company_number,
       menu_name: name,
       menu_value: parseInt(price),
       stock: parseInt(stock),
-      regi_date: cur,
+      regi_date: date(),
     })
       .then(d => console.log(d))
       .catch(e => console.error(e));
