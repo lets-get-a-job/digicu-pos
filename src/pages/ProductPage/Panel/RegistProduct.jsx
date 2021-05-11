@@ -30,7 +30,7 @@ const Panel = () => {
     else dayS = day.toString();
     const cur = `${year}-${monthS}-${dayS}`;
     RegistMenu(user.token, {
-      company_number: parseInt('1234561234'),
+      company_number: parseInt(user.companyInfo.company_number),
       menu_name: name,
       menu_value: parseInt(price),
       stock: parseInt(stock),
