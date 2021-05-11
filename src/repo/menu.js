@@ -31,6 +31,7 @@ export async function DeleteMenu(AccessToken, id) {
   const req = await axios.delete(`/pos/menu/${id}`, {
     headers: { ...defaultHeaders, Authorization: AccessToken },
   });
+  return req;
 }
 
 export async function ModifyMenu(AccessToken, payload) {
@@ -44,6 +45,13 @@ export async function ModifyMenu(AccessToken, payload) {
       },
     },
   );
+  return req;
+}
+
+export async function DetailMenu(AccessToken, id) {
+  const req = await axios.get(`/pos/menu/${id}`, {
+    headers: { ...defaultHeaders, Authorization: AccessToken },
+  });
 }
 
 export const a = 1;
