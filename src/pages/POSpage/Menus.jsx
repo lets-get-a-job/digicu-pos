@@ -1,10 +1,14 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Container, Text } from '../../components/atom';
 import { addList, plusCount } from './store';
+import { InquiryMenu } from '../../repo/menu';
+import useUser from '../../hook/useUser';
 
 const MainContainer = styled(Container)`
   display: flex;
@@ -18,6 +22,7 @@ const MainContainer = styled(Container)`
   overflow: scroll;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
+  align-items: flex-start;
 `;
 
 const MenuContainer = styled(Button)`
@@ -38,15 +43,17 @@ const Label = styled(Text)`
 `;
 
 function Menus({ menuss, dispatch }) {
-  const menus = [
-    { name: '돈까스', price: 7000 },
-    { name: '물', price: 2000 },
-    { name: '라면', price: 3000 },
-    { name: '떡라면', price: 5000 },
-    { name: '제육덮밥', price: 6000 },
-    { name: '우동', price: 4000 },
-    { name: '김치찌개', price: 6000 },
-  ];
+  const [user, setUser] = useUser();
+  const [menus, setMenus] = useState([]);
+
+  let idx = 1;
+
+  useEffect(() => {
+    InquiryMenu(user.token).then(d => {
+      console.log(d.data);
+      setMenus(d.data);
+    });
+  }, [user]);
 
   const menuClick = (name, price) => {
     const id = menuss.findIndex(element => element.name === name);
@@ -59,26 +66,29 @@ function Menus({ menuss, dispatch }) {
   return (
     <MainContainer>
       {menus.map((v, i) => {
-        if (i % 2 === 0)
+        if (v.company_number === user.companyInfo.company_number) {
+          if (idx++ % 2 === 0)
+            return (
+              <MenuContainer
+                key={v.menu_name + v.menu_value}
+                onClick={() => menuClick(v.menu_name, v.menu_value)}
+              >
+                <Text>{v.menu_name}</Text>
+                <Text>{v.menu_value}원</Text>
+              </MenuContainer>
+            );
           return (
             <MenuContainer
-              key={v.name + v.price}
-              onClick={() => menuClick(v.name, v.price)}
+              style={{ marginLeft: 'auto' }}
+              key={v.menu_name + v.menu_value}
+              onClick={() => menuClick(v.menu_name, v.menu_value)}
             >
-              <Text>{v.name}</Text>
-              <Text>{v.price}원</Text>
+              <Text>{v.menu_name}</Text>
+              <Text>{v.menu_value}원</Text>
             </MenuContainer>
           );
-        return (
-          <MenuContainer
-            style={{ marginLeft: 'auto' }}
-            key={v.name + v.price}
-            onClick={() => menuClick(v.name, v.price)}
-          >
-            <Text>{v.name}</Text>
-            <Text>{v.price}원</Text>
-          </MenuContainer>
-        );
+        }
+        return null;
       })}
       {menus.length % 2 === 0 ? (
         <MenuContainer>
