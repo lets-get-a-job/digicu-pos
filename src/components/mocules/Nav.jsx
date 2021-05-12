@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container } from '../atom';
+import Header from './Header';
 
 const NavConatinaer = styled(Container)`
   width: 100vw;
@@ -37,19 +38,22 @@ export default function NavBar() {
     { text: 'CUPON', path: '/cupon/currentcupon' },
   ];
   return (
-    <NavConatinaer>
-      {nav.map((v, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Nav key={i}>
-          <NavText
-            onClick={() => {
-              history.push(v.path);
-            }}
-          >
-            {v.text}
-          </NavText>
-        </Nav>
-      ))}
-    </NavConatinaer>
+    <>
+      <Header top="20px" right="10vw" />
+      <NavConatinaer>
+        {nav.map((v, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Nav key={i}>
+            <NavText
+              onClick={() => {
+                history.push(v.path);
+              }}
+            >
+              {v.text}
+            </NavText>
+          </Nav>
+        ))}
+      </NavConatinaer>
+    </>
   );
 }

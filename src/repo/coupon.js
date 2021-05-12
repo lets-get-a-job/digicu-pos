@@ -49,3 +49,34 @@ export async function DeleteCoupon(accessToken, id) {
   });
   return req;
 }
+
+export async function IssueCoupon(accessToken, payload) {
+  if (!payload) throw new Error('payload ERROR!');
+  const req = await axios.post(
+    '/coupon',
+    { ...payload },
+    { headers: { ...defaultHeaders, Authorization: accessToken } },
+  );
+
+  return req;
+}
+
+export async function AccumulateCoupon(accessToken, id, payload) {
+  console.log(payload);
+  const req = await axios.patch(
+    `/coupon/accumulate/${id}`,
+    { ...payload },
+    {
+      headers: { ...defaultHeaders, Authorization: accessToken },
+    },
+  );
+  return req;
+}
+
+export async function FindCoupon(accessToken, phone) {
+  const req = await axios.get(`/coupon/?phone=${phone}&state=normal`, {
+    headers: { ...defaultHeaders, Authorization: accessToken },
+  });
+
+  return req;
+}
