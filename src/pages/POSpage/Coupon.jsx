@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Container, Text } from '../../components/atom';
+import { Modal } from '../../components/mocules';
+import Issue from './Modal/Issue';
 import { InquiryCoupon } from '../../repo/coupon';
 import UseUser from '../../hook/useUser';
 
@@ -36,6 +38,10 @@ export default function Coupon() {
   const [coupon, setCoupon] = useState();
   const [status, setStatus] = useState();
 
+  const [modal, setModal] = useState(false);
+  const [id, setId] = useState(-1);
+  const [name, setName] = useState('');
+
   useEffect(() => {
     setStatus('PENDING');
     InquiryCoupon(user.token, user.companyInfo.email).then(d => {
@@ -48,11 +54,21 @@ export default function Coupon() {
     <CouponContainer>
       {status === 'SUCCESS'
         ? coupon.map(v => (
-            <CouponBtn key={v.id}>
+            <CouponBtn
+              key={v.id}
+              onClick={() => {
+                setModal(!modal);
+                setId(v.id);
+                setName(v.name);
+              }}
+            >
               <Text>{v.name}</Text>
             </CouponBtn>
           ))
         : '...로딩중'}
+      <Modal visible={modal} onCloseBtnClicked={() => setModal(!modal)}>
+        <Issue id={id} name={name} />
+      </Modal>
     </CouponContainer>
   );
 }
