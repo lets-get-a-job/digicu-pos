@@ -23,8 +23,8 @@ export default function ProductPage() {
 
   return (
     <>
-      <Header />
       <MainContainer style={{ backgroundColor: 'white' }}>
+        <Header except="menu" top="20px" right="10vw" />
         <NavBar />
         <SubContainer>
           <MenuBar menus={menus} />

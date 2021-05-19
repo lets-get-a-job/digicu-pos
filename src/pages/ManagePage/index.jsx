@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <MainContainer>
-        <Header />
+        <Header except="all" />
         <LogoImg
           style={{
             width: '20%',

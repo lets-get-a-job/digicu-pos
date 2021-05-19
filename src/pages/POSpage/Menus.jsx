@@ -49,7 +49,7 @@ function Menus({ menuss, dispatch }) {
   let idx = 1;
 
   useEffect(() => {
-    InquiryMenu(user.token).then(d => {
+    InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
       console.log(d.data);
       setMenus(d.data);
     });

@@ -84,6 +84,7 @@ function PaymentWindow({ state, dispatch }) {
 
   const onClick = () => {
     if (window.confirm('결제하시겠습니까?')) {
+      console.log(state.menus);
       dispatch(clearList());
     }
   };

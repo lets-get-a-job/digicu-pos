@@ -37,7 +37,6 @@ export default function CurrentProduct() {
   const [user, setUser] = useUser();
   const [status, setStatus] = useState('PENDING');
   const [myMenus, setMyMenus] = useState([]);
-  let idx = 1;
 
   const [modal, setModal] = useState(false);
   const [detail, setDetail] = useState({
@@ -98,31 +97,27 @@ export default function CurrentProduct() {
                 <Td>현재 등록 메뉴가 없습니다.</Td>
               </Tr>
             ) : (
-              myMenus.map((v, i) => {
-                if (v.company_number === user.companyInfo.company_number)
-                  return (
-                    <Tr key={v.menu_id}>
-                      <Td>{idx++}</Td>
-                      <Td>{v.menu_name}</Td>
-                      <Td>{v.menu_value}</Td>
-                      <Td>
-                        <TableBtn
-                          onClick={() =>
-                            detailBtnClicked(
-                              v.menu_id,
-                              v.menu_name,
-                              v.menu_value,
-                              v.stock,
-                            )
-                          }
-                        >
-                          자세히보기
-                        </TableBtn>
-                      </Td>
-                    </Tr>
-                  );
-                return null;
-              })
+              myMenus.map((v, i) => (
+                <Tr key={v.menu_id}>
+                  <Td>{i + 1}</Td>
+                  <Td>{v.menu_name}</Td>
+                  <Td>{v.menu_value}</Td>
+                  <Td>
+                    <TableBtn
+                      onClick={() =>
+                        detailBtnClicked(
+                          v.menu_id,
+                          v.menu_name,
+                          v.menu_value,
+                          v.stock,
+                        )
+                      }
+                    >
+                      자세히보기
+                    </TableBtn>
+                  </Td>
+                </Tr>
+              ))
             )
           ) : (
             <Tr>

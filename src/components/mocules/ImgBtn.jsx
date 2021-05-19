@@ -26,7 +26,7 @@ export default function ImgBtn({ width, height, url, path, boxShadow, text }) {
   const history = useHistory();
 
   return (
-    <Container>
+    <Container style={{ paddingTop: '0px' }}>
       <ImgContainer
         onClick={() => history.push(path)}
         width={width}

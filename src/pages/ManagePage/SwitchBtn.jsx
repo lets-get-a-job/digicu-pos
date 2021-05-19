@@ -15,6 +15,7 @@ const BtnContiner = styled(Container)`
   justify-content: space-around;
   padding-left: 15vw;
   padding-right: 15vw;
+  padding-top: 100px;
 `;
 
 export default function SwitchBtn() {

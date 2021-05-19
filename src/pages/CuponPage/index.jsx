@@ -51,8 +51,8 @@ export default function Page() {
   ];
   return (
     <>
-      <Header />
       <MainContainer style={{ backgroundColor: 'white' }}>
+        <Header except="coupon" top="20px" right="10vw" />
         <NavBar />
         <SubContainer>
           <MenuBar menus={menus} />
