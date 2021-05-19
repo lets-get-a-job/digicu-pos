@@ -26,7 +26,12 @@ const Panel = () => {
       stock: parseInt(stock),
       regi_date: date(),
     })
-      .then(d => console.log(d))
+      .then(() => {
+        alert('성공적으로 등록되었습니다');
+        setName('');
+        setPrice('');
+        setStock('');
+      })
       .catch(e => console.error(e));
   };
 
