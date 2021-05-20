@@ -1,8 +1,17 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Container, Text, Table, Tr, Th, Td } from '../../components/atom';
-import { TableBox } from '../../components/mocules';
+import {
+  Container,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+} from '../../components/atom';
 
 const PartialContainer = styled(Container)`
   width: 34%;
@@ -22,14 +31,42 @@ const TableContainer = styled(Container)`
   background-color: white;
   margin: 0px;
   padding: 10px;
+  border-radius: 5px;
 `;
 
-export default function PartialSale() {
+export default function PartialSale({ detailList }) {
+  useEffect(() => {
+    console.log(detailList);
+  }, [detailList]);
+
   return (
     <PartialContainer>
       <TableContainer>
-        <TableBox list={[]} />
+        <Table>
+          <Thead>
+            <Tr bgc="rgba(128, 128, 128, 0.2)">
+              <Th>#</Th>
+              <Th>메뉴</Th>
+              <Th>가격</Th>
+              <Th>개수</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {detailList.items.map((v, i) => (
+              <Tr>
+                <Td>{i + 1}</Td>
+                <Td>{v.menu_id}</Td>
+                <Td>{v.payment_value}</Td>
+                <Td>{v.payment_count}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </TableContainer>
     </PartialContainer>
   );
 }
+
+PartialSale.propTypes = {
+  detailList: PropTypes.any.isRequired,
+};
