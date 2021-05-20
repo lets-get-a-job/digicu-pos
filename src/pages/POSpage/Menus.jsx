@@ -23,6 +23,7 @@ const MainContainer = styled(Container)`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   align-items: flex-start;
+  justify-content: space-around;
 `;
 
 const MenuContainer = styled(Button)`
@@ -52,6 +53,7 @@ function Menus({ menuss, dispatch }) {
     InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
       console.log(d.data);
       setMenus(d.data);
+      console.log(menus.length);
     });
   }, [user]);
 
@@ -79,7 +81,7 @@ function Menus({ menuss, dispatch }) {
             );
           return (
             <MenuContainer
-              style={{ marginLeft: 'auto' }}
+              style={{ marginRight: 'auto' }}
               key={v.menu_name + v.menu_value}
               onClick={() => menuClick(v.menu_name, v.menu_value)}
             >
@@ -91,11 +93,11 @@ function Menus({ menuss, dispatch }) {
         return null;
       })}
       {menus.length % 2 === 0 ? (
-        <MenuContainer>
+        <MenuContainer style={{ marginRight: 'auto' }}>
           <Label>+</Label>
         </MenuContainer>
       ) : (
-        <MenuContainer style={{ marginLeft: 'auto' }}>
+        <MenuContainer>
           <Label>+</Label>
         </MenuContainer>
       )}
