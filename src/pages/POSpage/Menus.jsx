@@ -23,6 +23,7 @@ const MainContainer = styled(Container)`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   align-items: flex-start;
+  justify-content: space-around;
 `;
 
 const MenuContainer = styled(Button)`
@@ -49,18 +50,15 @@ function Menus({ menuss, dispatch }) {
   let idx = 1;
 
   useEffect(() => {
-    InquiryMenu(user.token).then(d => {
-      console.log(d.data);
-      setMenus(d.data);
+    InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
+      if (d.data !== null) setMenus(d.data);
     });
   }, [user]);
 
-  const menuClick = (name, price) => {
+  const menuClick = (menuId, name, price) => {
     const id = menuss.findIndex(element => element.name === name);
-    if (id === -1) dispatch(addList({ name, price }));
-    else dispatch(plusCount({ id, price }));
-
-    console.log(menuss);
+    if (id === -1) dispatch(addList({ menuId, name, price }));
+    else dispatch(plusCount({ menuId, id, price }));
   };
 
   return (
@@ -71,7 +69,7 @@ function Menus({ menuss, dispatch }) {
             return (
               <MenuContainer
                 key={v.menu_name + v.menu_value}
-                onClick={() => menuClick(v.menu_name, v.menu_value)}
+                onClick={() => menuClick(v.menu_id, v.menu_name, v.menu_value)}
               >
                 <Text>{v.menu_name}</Text>
                 <Text>{v.menu_value}원</Text>
@@ -79,9 +77,9 @@ function Menus({ menuss, dispatch }) {
             );
           return (
             <MenuContainer
-              style={{ marginLeft: 'auto' }}
+              style={{ marginRight: 'auto' }}
               key={v.menu_name + v.menu_value}
-              onClick={() => menuClick(v.menu_name, v.menu_value)}
+              onClick={() => menuClick(v.menu_id, v.menu_name, v.menu_value)}
             >
               <Text>{v.menu_name}</Text>
               <Text>{v.menu_value}원</Text>
@@ -91,11 +89,11 @@ function Menus({ menuss, dispatch }) {
         return null;
       })}
       {menus.length % 2 === 0 ? (
-        <MenuContainer>
+        <MenuContainer style={{ marginRight: 'auto' }}>
           <Label>+</Label>
         </MenuContainer>
       ) : (
-        <MenuContainer style={{ marginLeft: 'auto' }}>
+        <MenuContainer>
           <Label>+</Label>
         </MenuContainer>
       )}

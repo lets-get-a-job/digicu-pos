@@ -18,7 +18,7 @@ const SubContainer = styled(Container)`
 export default function POSPage() {
   return (
     <MainContainer>
-      <Header top="0px" right="0px" />
+      <Header top="0px" right="0px" except="pos" />
       <SubContainer>
         <PaymentWindow />
         <Menus />

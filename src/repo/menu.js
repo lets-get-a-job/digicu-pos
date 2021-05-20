@@ -4,9 +4,8 @@ import { defaultHeaders } from './_axios';
 
 export async function RegistMenu(AccessToken, payload) {
   if (!payload) throw new Error('payload ERROR!');
-  console.log(payload);
   const req = await axios.post(
-    '/pos/menu',
+    `/pos/menu/${payload.company_number}`,
     { ...payload },
     {
       headers: {
@@ -19,8 +18,8 @@ export async function RegistMenu(AccessToken, payload) {
   return req;
 }
 
-export async function InquiryMenu(AccessToken) {
-  const req = await axios.get('/pos/menu', {
+export async function InquiryMenu(AccessToken, companyNumber) {
+  const req = await axios.get(`/pos/menu/${companyNumber}`, {
     headers: { ...defaultHeaders, Authorization: AccessToken },
   });
 

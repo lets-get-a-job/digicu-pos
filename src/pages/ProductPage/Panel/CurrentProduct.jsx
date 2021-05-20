@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable radix */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-const-assign */
@@ -36,7 +37,6 @@ export default function CurrentProduct() {
   const [user, setUser] = useUser();
   const [status, setStatus] = useState('PENDING');
   const [myMenus, setMyMenus] = useState([]);
-  let idx = 1;
 
   const [modal, setModal] = useState(false);
   const [detail, setDetail] = useState({
@@ -54,8 +54,9 @@ export default function CurrentProduct() {
       console.log(status);
       setModal(false);
       setStatus('PENDING');
-      InquiryMenu(user.token).then(d => {
+      InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
         setMyMenus(d.data);
+        console.log(d.data);
       });
       setStatus('SUCCESS');
       setIsChange(false);
@@ -90,36 +91,38 @@ export default function CurrentProduct() {
           </Tr>
         </Thead>
         <Tbody>
-          {status === 'PENDING' ? (
+          {status === 'SUCCESS' ? (
+            myMenus === null ? (
+              <Tr>
+                <Td>현재 등록 메뉴가 없습니다.</Td>
+              </Tr>
+            ) : (
+              myMenus.map((v, i) => (
+                <Tr key={v.menu_id}>
+                  <Td>{i + 1}</Td>
+                  <Td>{v.menu_name}</Td>
+                  <Td>{v.menu_value}</Td>
+                  <Td>
+                    <TableBtn
+                      onClick={() =>
+                        detailBtnClicked(
+                          v.menu_id,
+                          v.menu_name,
+                          v.menu_value,
+                          v.stock,
+                        )
+                      }
+                    >
+                      자세히보기
+                    </TableBtn>
+                  </Td>
+                </Tr>
+              ))
+            )
+          ) : (
             <Tr>
               <Td>...로딩중</Td>
             </Tr>
-          ) : (
-            myMenus.map((v, i) => {
-              if (v.company_number === user.companyInfo.company_number)
-                return (
-                  <Tr key={v.menu_id}>
-                    <Td>{idx++}</Td>
-                    <Td>{v.menu_name}</Td>
-                    <Td>{v.menu_value}</Td>
-                    <Td>
-                      <TableBtn
-                        onClick={() =>
-                          detailBtnClicked(
-                            v.menu_id,
-                            v.menu_name,
-                            v.menu_value,
-                            v.stock,
-                          )
-                        }
-                      >
-                        자세히보기
-                      </TableBtn>
-                    </Td>
-                  </Tr>
-                );
-              return null;
-            })
           )}
         </Tbody>
       </Table>
