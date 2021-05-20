@@ -21,6 +21,10 @@ import {
 } from '../../components/atom';
 import PaymentContext from '../../context/paymentContext';
 import { deleteList, clearList } from './store';
+import { RegistPayment } from '../../repo/payment';
+import date from '../../date';
+import time from '../../time';
+import useUser from '../../hook/useUser';
 
 const MainContainer = styled(Container)`
   padding: 0px;
@@ -77,14 +81,32 @@ const TextSubContainer = styled(Container)`
 `;
 
 function PaymentWindow({ state, dispatch }) {
+  const [user, setUser] = useUser();
   const payment = useContext(PaymentContext);
-
-  console.log(typeof state);
-  console.log(state);
 
   const onClick = () => {
     if (window.confirm('결제하시겠습니까?')) {
-      console.log(state.menus);
+      console.log(state);
+      const paymentItems = [];
+      for (const i of state.menus) {
+        paymentItems.push({
+          menu_id: i.menuId,
+          payment_count: i.count,
+          payment_value: i.price,
+        });
+      }
+      console.log(paymentItems);
+      const payload = {
+        payment_info: {
+          sale: state.sale,
+          sum: state.sum,
+          total: state.total,
+          payment_time: `${date()} ${time()}`,
+        },
+        payment_items: paymentItems,
+      };
+      console.log(payload);
+      RegistPayment(user.token, payload, user.companyInfo.company_number);
       dispatch(clearList());
     }
   };

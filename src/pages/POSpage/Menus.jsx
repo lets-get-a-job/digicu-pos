@@ -51,18 +51,14 @@ function Menus({ menuss, dispatch }) {
 
   useEffect(() => {
     InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
-      console.log(d.data);
-      setMenus(d.data);
-      console.log(menus.length);
+      if (d.data !== null) setMenus(d.data);
     });
   }, [user]);
 
-  const menuClick = (name, price) => {
+  const menuClick = (menuId, name, price) => {
     const id = menuss.findIndex(element => element.name === name);
-    if (id === -1) dispatch(addList({ name, price }));
-    else dispatch(plusCount({ id, price }));
-
-    console.log(menuss);
+    if (id === -1) dispatch(addList({ menuId, name, price }));
+    else dispatch(plusCount({ menuId, id, price }));
   };
 
   return (
@@ -73,7 +69,7 @@ function Menus({ menuss, dispatch }) {
             return (
               <MenuContainer
                 key={v.menu_name + v.menu_value}
-                onClick={() => menuClick(v.menu_name, v.menu_value)}
+                onClick={() => menuClick(v.menu_id, v.menu_name, v.menu_value)}
               >
                 <Text>{v.menu_name}</Text>
                 <Text>{v.menu_value}원</Text>
@@ -83,7 +79,7 @@ function Menus({ menuss, dispatch }) {
             <MenuContainer
               style={{ marginRight: 'auto' }}
               key={v.menu_name + v.menu_value}
-              onClick={() => menuClick(v.menu_name, v.menu_value)}
+              onClick={() => menuClick(v.menu_id, v.menu_name, v.menu_value)}
             >
               <Text>{v.menu_name}</Text>
               <Text>{v.menu_value}원</Text>

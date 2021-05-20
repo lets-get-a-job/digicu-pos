@@ -46,9 +46,6 @@ export default function Header({ top, right, except }) {
     <HeaderContainer top={top} right={right}>
       {icon.map((v, i) => {
         if (except === v.text || except === 'all') return null;
-        console.log(except);
-        console.log(v.text);
-        console.log(except === v.text);
         return (
           <div
             key={v.text}

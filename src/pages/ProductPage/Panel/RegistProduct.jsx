@@ -16,21 +16,18 @@ const Panel = () => {
   const [user, setUser] = useUser();
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
-  const [stock, setStock] = useState('');
 
   const onClick = () => {
     RegistMenu(user.token, {
       company_number: user.companyInfo.company_number,
       menu_name: name,
       menu_value: parseInt(price),
-      stock: parseInt(stock),
       regi_date: date(),
     })
       .then(() => {
         alert('성공적으로 등록되었습니다');
         setName('');
         setPrice('');
-        setStock('');
       })
       .catch(e => console.error(e));
   };
@@ -52,13 +49,7 @@ const Panel = () => {
           value={price}
           onChange={e => setPrice(e.target.value.replace(/[^0-9]/g, ''))}
         />
-        <InputBox
-          label="재고"
-          type="text"
-          width="250px"
-          value={stock}
-          onChange={e => setStock(e.target.value.replace(/[^0-9]/g, ''))}
-        />
+
         <Button type="button" style={{ marginTop: '50px' }} onClick={onClick}>
           등록하기
         </Button>
