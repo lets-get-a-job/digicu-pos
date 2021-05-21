@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
@@ -52,14 +53,16 @@ export default function PartialSale({ detailList }) {
             </Tr>
           </Thead>
           <Tbody>
-            {detailList.items.map((v, i) => (
-              <Tr>
-                <Td>{i + 1}</Td>
-                <Td>{v.menu_id}</Td>
-                <Td>{v.payment_value}</Td>
-                <Td>{v.payment_count}</Td>
-              </Tr>
-            ))}
+            {!detailList.items
+              ? null
+              : detailList.items.map((v, i) => (
+                  <Tr key={v.menu_id}>
+                    <Td>{i + 1}</Td>
+                    <Td>{v.menu_id}</Td>
+                    <Td>{v.payment_value}</Td>
+                    <Td>{v.payment_count}</Td>
+                  </Tr>
+                ))}
           </Tbody>
         </Table>
       </TableContainer>

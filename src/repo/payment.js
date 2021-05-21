@@ -15,10 +15,11 @@ export async function RegistPayment(AccessToken, payload, companyNumber) {
   return req;
 }
 
-export async function InquiryPayment(AccessToken, companyNumber) {
+export async function InquiryPayment(AccessToken, companyNumber, params) {
   const req = await axios
     .get(`/pos/payment/${companyNumber}`, {
       headers: { ...defaultHeaders, Authorization: AccessToken },
+      params: { ...params },
     })
     .then(d => d);
 
