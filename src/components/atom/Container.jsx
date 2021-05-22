@@ -14,6 +14,7 @@ const MainContainer = styled(Container)`
   height: auto;
   min-height: 100vh;
   padding: 50px;
+  position: relative;
 `;
 
 export { Container, MainContainer };
