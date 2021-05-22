@@ -106,6 +106,7 @@ export default function EntireSale({ setDetailList }) {
     InquiryPayment(user.token, user.companyInfo.company_number, params).then(
       d => {
         setPaymentList(d);
+        setDetailList([]);
         console.log(d);
       },
     );
@@ -187,8 +188,8 @@ export default function EntireSale({ setDetailList }) {
                 <Td>{i + 1}</Td>
                 <Td>
                   {v.items.length === 1
-                    ? v.items[0].menu_id
-                    : `${v.items[0].menu_id}...`}
+                    ? v.items[0].menu_name
+                    : `${v.items[0].menu_name}...`}
                 </Td>
                 <Td>{v.total}</Td>
                 <Td>{v.payment_time}</Td>

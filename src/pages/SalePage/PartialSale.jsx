@@ -58,7 +58,7 @@ export default function PartialSale({ detailList }) {
               : detailList.items.map((v, i) => (
                   <Tr key={v.menu_id}>
                     <Td>{i + 1}</Td>
-                    <Td>{v.menu_id}</Td>
+                    <Td>{v.menu_name}</Td>
                     <Td>{v.payment_value}</Td>
                     <Td>{v.payment_count}</Td>
                   </Tr>
