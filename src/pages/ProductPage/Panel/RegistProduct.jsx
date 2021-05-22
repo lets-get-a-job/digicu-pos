@@ -6,7 +6,7 @@ import { Container, Form, Button } from '../../../components/atom';
 import { InputBox } from '../../../components/mocules';
 import { RegistMenu } from '../../../repo/menu';
 import useUser from '../../../hook/useUser';
-import date from '../../../date';
+import { date } from '../../../date';
 
 const FormContainer = styled(Container)`
   margin: 0px;

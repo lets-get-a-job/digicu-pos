@@ -22,7 +22,7 @@ import {
 import PaymentContext from '../../context/paymentContext';
 import { deleteList, clearList } from './store';
 import { RegistPayment } from '../../repo/payment';
-import date from '../../date';
+import { date } from '../../date';
 import time from '../../time';
 import useUser from '../../hook/useUser';
 

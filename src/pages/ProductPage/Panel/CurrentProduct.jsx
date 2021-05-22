@@ -25,7 +25,7 @@ import { Modal } from '../../../components/mocules';
 import { InquiryMenu } from '../../../repo/menu';
 import useUser from '../../../hook/useUser';
 import Detail from './Modal/MenuDetail';
-import date from '../../../date';
+import { date } from '../../../date';
 
 const CurCouContainer = styled(Container)`
   padding-top: 10px;

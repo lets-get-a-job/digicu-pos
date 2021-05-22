@@ -16,7 +16,7 @@ import {
 } from '../../components/atom';
 import { InquiryPayment } from '../../repo/payment';
 import useUser from '../../hook/useUser';
-import date from '../../date';
+import { date, splitDate } from '../../date';
 
 const EntireContainer = styled(Container)`
   width: 64%;
@@ -62,12 +62,19 @@ const TBodyTr = styled(Tr)`
   cursor: pointer;
 `;
 
+const PointBtn = styled(Button)`
+  width: 50px;
+  height: 50px;
+  background: none;
+  margin: 20px;
+  color: black;
+  font-size: 50px;
+  padding: 0px;
+  line-height: 50px;
+`;
+
 export default function EntireSale({ setDetailList }) {
-  const curdate = new Date();
-  const year = curdate.getFullYear();
-  const month = curdate.getMonth() + 1;
-  const day = curdate.getDate();
-  const [curDate, setCurDate] = useState({ year, month, day });
+  const [curDate, setCurDate] = useState(splitDate(new Date()));
 
   const [user, setUser] = useUser();
   const [paymentList, setPaymentList] = useState([]);
@@ -75,84 +82,40 @@ export default function EntireSale({ setDetailList }) {
   const endDate = targetDate => {
     const tempDate = new Date(targetDate);
     tempDate.setDate(tempDate.getDate() + 1);
-
-    const ty = tempDate.getFullYear();
-    const tm = tempDate.getMonth();
-    const td = tempDate.getDate();
-
-    return date(new Date(ty, tm, td));
+    const { year, month, day } = splitDate(tempDate);
+    return date(new Date(year, month - 1, day));
   };
 
   useEffect(() => {
     const targetDate = date(
       new Date(curDate.year, curDate.month - 1, curDate.day),
     );
-
-    const params = { start: targetDate, end: endDate(targetDate) };
-    console.log(params);
-    InquiryPayment(user.token, user.companyInfo.company_number, params).then(
-      d => {
-        setPaymentList(d);
-        setDetailList([]);
-        console.log(d);
+    const payload = {
+      companyNumber: user.companyInfo.company_number,
+      params: {
+        start: targetDate,
+        end: endDate(targetDate),
       },
-    );
+    };
+    InquiryPayment(user.token, payload).then(d => {
+      setPaymentList(d);
+      setDetailList([]);
+      console.log(d);
+    });
   }, [curDate]);
 
-  const preDateBtnClicked = () => {
+  const PoinBtnClicked = type => {
     const tempDate = new Date(curDate.year, curDate.month - 1, curDate.day);
-    tempDate.setDate(tempDate.getDate() - 1);
-    setCurDate({
-      year: tempDate.getFullYear(),
-      month: tempDate.getMonth() + 1,
-      day: tempDate.getDate(),
-    });
-  };
-
-  const nextDateBtnClicked = () => {
-    const tempDate = new Date(curDate.year, curDate.month - 1, curDate.day);
-    tempDate.setDate(tempDate.getDate() + 1);
-    setCurDate({
-      year: tempDate.getFullYear(),
-      month: tempDate.getMonth() + 1,
-      day: tempDate.getDate(),
-    });
+    tempDate.setDate(tempDate.getDate() + type);
+    setCurDate(splitDate(tempDate));
   };
 
   return (
     <EntireContainer>
       <DateContainer>
-        <Button
-          style={{
-            width: '50px',
-            height: '50px',
-            background: 'none',
-            margin: '20px',
-            color: 'black',
-            fontSize: '50px',
-            padding: '0px',
-            lineHeight: '50px',
-          }}
-          onClick={preDateBtnClicked}
-        >
-          {'<'}
-        </Button>
+        <PointBtn onClick={() => PoinBtnClicked(-1)}>{'<'}</PointBtn>
         <DateText>{`${curDate.month} / ${curDate.day}`}</DateText>
-        <Button
-          style={{
-            width: '50px',
-            height: '50px',
-            background: 'none',
-            margin: '20px',
-            color: 'black',
-            fontSize: '50px',
-            padding: '0px',
-            lineHeight: '50px',
-          }}
-          onClick={nextDateBtnClicked}
-        >
-          {'>'}
-        </Button>
+        <PointBtn onClick={() => PoinBtnClicked(1)}>{'>'}</PointBtn>
       </DateContainer>
       <SaleContainer>
         <Table>
