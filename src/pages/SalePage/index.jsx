@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Container } from '../../components/atom';
 import { Header } from '../../components/mocules';
@@ -20,11 +20,13 @@ const MainContainer = styled(Container)`
 `;
 
 export default function SalePage() {
+  const [detailList, setDetailList] = useState([]);
+
   return (
     <MainContainer>
       <Header except="sale" top="0px" right="0px" />
-      <EntireSale />
-      <PartialSale />
+      <EntireSale setDetailList={setDetailList} />
+      <PartialSale detailList={detailList} />
     </MainContainer>
   );
 }

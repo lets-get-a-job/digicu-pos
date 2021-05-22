@@ -12,5 +12,16 @@ export async function RegistPayment(AccessToken, payload, companyNumber) {
     },
   );
 
-  return 'asd';
+  return req;
+}
+
+export async function InquiryPayment(AccessToken, companyNumber, params) {
+  const req = await axios
+    .get(`/pos/payment/${companyNumber}`, {
+      headers: { ...defaultHeaders, Authorization: AccessToken },
+      params: { ...params },
+    })
+    .then(d => d);
+
+  return req.data;
 }

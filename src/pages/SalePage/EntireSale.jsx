@@ -1,8 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PrpoTypes from 'prop-types';
 import styled from 'styled-components';
-import { Container, Text, Button } from '../../components/atom';
-import { TableBox } from '../../components/mocules';
+import {
+  Container,
+  Text,
+  Button,
+  Table,
+  Tr,
+  Th,
+  Td,
+  Thead,
+  Tbody,
+} from '../../components/atom';
+import { InquiryPayment } from '../../repo/payment';
+import useUser from '../../hook/useUser';
 
 const EntireContainer = styled(Container)`
   width: 64%;
@@ -41,58 +54,84 @@ const SaleContainer = styled(Container)`
   border-radius: 5px;
 `;
 
-export default function EntireSale() {
-  const date = new Date();
-  const month = (date.getMonth() + 1).toString();
-  const day = date.getDate();
-  const list = [
-    {
-      title: 'head',
-      content: [
-        { text: '#', width: '10%' },
-        { text: '메뉴', width: '' },
-        { text: '가격', width: '' },
-        { text: '시간', width: '' },
-      ],
-    },
-    {
-      title: 'body',
-      contents: [
-        {
-          content: [
-            { text: '1' },
-            { text: '치킨' },
-            { text: '140,000' },
-            { text: 'PM 14:30' },
-          ],
-        },
-        {
-          content: [
-            { text: '2' },
-            { text: '피자' },
-            { text: '10,000' },
-            { text: 'PM 14:45' },
-          ],
-        },
-        {
-          content: [
-            { text: '3' },
-            { text: '과자' },
-            { text: '100,000' },
-            { text: 'PM 15:20' },
-          ],
-        },
-        {
-          content: [
-            { text: '4' },
-            { text: '이프로부족할때' },
-            { text: '1,000' },
-            { text: 'PM 16:30' },
-          ],
-        },
-      ],
-    },
-  ];
+const TBodyTr = styled(Tr)`
+  :hover {
+    background-color: rgba(212, 212, 212, 0.2);
+  }
+  cursor: pointer;
+`;
+
+export default function EntireSale({ setDetailList }) {
+  const curdate = new Date();
+  const year = curdate.getFullYear();
+  const month = curdate.getMonth() + 1;
+  const day = curdate.getDate();
+  const [date, setDate] = useState({ year, month, day });
+
+  const [user, setUser] = useUser();
+  const [paymentList, setPaymentList] = useState([]);
+
+  const endDate = targetDate => {
+    const tempDate = new Date(targetDate);
+    console.log(tempDate);
+    tempDate.setDate(tempDate.getDate() + 1);
+
+    const ty = tempDate.getFullYear();
+    const tm = tempDate.getMonth() + 1;
+    const td = tempDate.getDate();
+
+    console.log(ty, tm, td);
+
+    let monthS;
+    if (tm < 10) monthS = `0${tm.toString()}`;
+    else monthS = tm.toString();
+    let dayS;
+    if (td < 10) dayS = `0${td.toString()}`;
+    else dayS = td.toString();
+
+    return `${ty}-${monthS}-${dayS}`;
+  };
+
+  useEffect(() => {
+    let monthS;
+    if (date.month < 10) monthS = `0${date.month.toString()}`;
+    else monthS = date.month.toString();
+    let dayS;
+    if (date.day < 10) dayS = `0${date.day.toString()}`;
+    else dayS = date.day.toString();
+    const targetDate = `${date.year}-${monthS}-${dayS}`;
+
+    const params = { start: targetDate, end: endDate(targetDate) };
+    console.log(params);
+    InquiryPayment(user.token, user.companyInfo.company_number, params).then(
+      d => {
+        setPaymentList(d);
+        setDetailList([]);
+        console.log(d);
+      },
+    );
+  }, [date]);
+
+  const preDateBtnClicked = () => {
+    const tempDate = new Date(date.year, date.month - 1, date.day);
+    tempDate.setDate(tempDate.getDate() - 1);
+    setDate({
+      year: tempDate.getFullYear(),
+      month: tempDate.getMonth() + 1,
+      day: tempDate.getDate(),
+    });
+  };
+
+  const nextDateBtnClicked = () => {
+    const tempDate = new Date(date.year, date.month - 1, date.day);
+    tempDate.setDate(tempDate.getDate() + 1);
+    setDate({
+      year: tempDate.getFullYear(),
+      month: tempDate.getMonth() + 1,
+      day: tempDate.getDate(),
+    });
+  };
+
   return (
     <EntireContainer>
       <DateContainer>
@@ -107,10 +146,11 @@ export default function EntireSale() {
             padding: '0px',
             lineHeight: '50px',
           }}
+          onClick={preDateBtnClicked}
         >
           {'<'}
         </Button>
-        <DateText>{`${month} / ${day}`}</DateText>
+        <DateText>{`${date.month} / ${date.day}`}</DateText>
         <Button
           style={{
             width: '50px',
@@ -122,13 +162,46 @@ export default function EntireSale() {
             padding: '0px',
             lineHeight: '50px',
           }}
+          onClick={nextDateBtnClicked}
         >
           {'>'}
         </Button>
       </DateContainer>
       <SaleContainer>
-        <TableBox list={list} />
+        <Table>
+          <Thead>
+            <Tr bgc="rgba(128, 128, 128, 0.2)">
+              <Th width="30%">#</Th>
+              <Th width="30%">메뉴</Th>
+              <Th width="20%">가격</Th>
+              <Th width="20%">시간</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {paymentList.map((v, i) => (
+              <TBodyTr
+                key={v.payment_group_id}
+                onClick={() => {
+                  setDetailList(v);
+                }}
+              >
+                <Td>{i + 1}</Td>
+                <Td>
+                  {v.items.length === 1
+                    ? v.items[0].menu_name
+                    : `${v.items[0].menu_name}...`}
+                </Td>
+                <Td>{v.total}</Td>
+                <Td>{v.payment_time}</Td>
+              </TBodyTr>
+            ))}
+          </Tbody>
+        </Table>
       </SaleContainer>
     </EntireContainer>
   );
 }
+
+EntireSale.propTypes = {
+  setDetailList: PrpoTypes.func.isRequired,
+};
