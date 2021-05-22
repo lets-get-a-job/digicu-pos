@@ -45,7 +45,7 @@ export default function CurrentProduct() {
     menu_name: '',
     menu_value: -1,
     stock: -1,
-    regi_date: date(),
+    regi_date: '',
   });
   const [isChange, setIsChange] = useState(true);
 

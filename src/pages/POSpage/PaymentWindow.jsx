@@ -101,7 +101,7 @@ function PaymentWindow({ state, dispatch }) {
           sale: state.sale,
           sum: state.sum,
           total: state.total,
-          payment_time: `${date()} ${time()}`,
+          payment_time: `${date(new Date())} ${time()}`,
         },
         payment_items: paymentItems,
       };

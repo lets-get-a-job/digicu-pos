@@ -16,6 +16,7 @@ import {
 } from '../../components/atom';
 import { InquiryPayment } from '../../repo/payment';
 import useUser from '../../hook/useUser';
+import date from '../../date';
 
 const EntireContainer = styled(Container)`
   width: 64%;
@@ -66,40 +67,26 @@ export default function EntireSale({ setDetailList }) {
   const year = curdate.getFullYear();
   const month = curdate.getMonth() + 1;
   const day = curdate.getDate();
-  const [date, setDate] = useState({ year, month, day });
+  const [curDate, setCurDate] = useState({ year, month, day });
 
   const [user, setUser] = useUser();
   const [paymentList, setPaymentList] = useState([]);
 
   const endDate = targetDate => {
     const tempDate = new Date(targetDate);
-    console.log(tempDate);
     tempDate.setDate(tempDate.getDate() + 1);
 
     const ty = tempDate.getFullYear();
-    const tm = tempDate.getMonth() + 1;
+    const tm = tempDate.getMonth();
     const td = tempDate.getDate();
 
-    console.log(ty, tm, td);
-
-    let monthS;
-    if (tm < 10) monthS = `0${tm.toString()}`;
-    else monthS = tm.toString();
-    let dayS;
-    if (td < 10) dayS = `0${td.toString()}`;
-    else dayS = td.toString();
-
-    return `${ty}-${monthS}-${dayS}`;
+    return date(new Date(ty, tm, td));
   };
 
   useEffect(() => {
-    let monthS;
-    if (date.month < 10) monthS = `0${date.month.toString()}`;
-    else monthS = date.month.toString();
-    let dayS;
-    if (date.day < 10) dayS = `0${date.day.toString()}`;
-    else dayS = date.day.toString();
-    const targetDate = `${date.year}-${monthS}-${dayS}`;
+    const targetDate = date(
+      new Date(curDate.year, curDate.month - 1, curDate.day),
+    );
 
     const params = { start: targetDate, end: endDate(targetDate) };
     console.log(params);
@@ -110,12 +97,12 @@ export default function EntireSale({ setDetailList }) {
         console.log(d);
       },
     );
-  }, [date]);
+  }, [curDate]);
 
   const preDateBtnClicked = () => {
-    const tempDate = new Date(date.year, date.month - 1, date.day);
+    const tempDate = new Date(curDate.year, curDate.month - 1, curDate.day);
     tempDate.setDate(tempDate.getDate() - 1);
-    setDate({
+    setCurDate({
       year: tempDate.getFullYear(),
       month: tempDate.getMonth() + 1,
       day: tempDate.getDate(),
@@ -123,9 +110,9 @@ export default function EntireSale({ setDetailList }) {
   };
 
   const nextDateBtnClicked = () => {
-    const tempDate = new Date(date.year, date.month - 1, date.day);
+    const tempDate = new Date(curDate.year, curDate.month - 1, curDate.day);
     tempDate.setDate(tempDate.getDate() + 1);
-    setDate({
+    setCurDate({
       year: tempDate.getFullYear(),
       month: tempDate.getMonth() + 1,
       day: tempDate.getDate(),
@@ -150,7 +137,7 @@ export default function EntireSale({ setDetailList }) {
         >
           {'<'}
         </Button>
-        <DateText>{`${date.month} / ${date.day}`}</DateText>
+        <DateText>{`${curDate.month} / ${curDate.day}`}</DateText>
         <Button
           style={{
             width: '50px',

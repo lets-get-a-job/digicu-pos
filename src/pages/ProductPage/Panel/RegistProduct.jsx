@@ -22,7 +22,7 @@ const Panel = () => {
       company_number: user.companyInfo.company_number,
       menu_name: name,
       menu_value: parseInt(price),
-      regi_date: date(),
+      regi_date: date(new Date()),
     })
       .then(() => {
         alert('성공적으로 등록되었습니다');
