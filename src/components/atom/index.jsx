@@ -2,7 +2,6 @@ import Div from './Div';
 import Text from './Text';
 import Input from './Input';
 import { Container, MainContainer } from './Container';
-import LogoImg from './logo';
 import { Button, TableBtn } from './Button';
 import Form from './Form';
 import { Table, Thead, Tbody, Td, Th, Tr } from './Table';
@@ -14,7 +13,6 @@ export {
   Input,
   Container,
   MainContainer,
-  LogoImg,
   Button,
   TableBtn,
   Form,

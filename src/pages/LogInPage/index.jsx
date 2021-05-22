@@ -3,14 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  LogoImg,
-  Div,
-  MainContainer,
-  Text,
-  Button,
-} from '../../components/atom';
-import { InputBox, CheckBox } from '../../components/mocules';
+import { Div, MainContainer, Text, Button } from '../../components/atom';
+import { InputBox, CheckBox, Logo } from '../../components/mocules';
 import { SignIn } from '../../repo/auth';
 import useUser from '../../hook/useUser';
 
@@ -109,14 +103,12 @@ export default function LogInPage() {
   return (
     <>
       <MainContainer>
-        <LogoImg
-          style={{
-            width: '20%',
-            height: '15%',
-            minWidth: '400px',
-            minHeight: '150px',
-            marginTop: '120px',
-          }}
+        <Logo
+          width="20%"
+          height="15%"
+          minWidth="400px"
+          minHeight="150px"
+          marginTop="120px"
         />
         <LogInContainer>
           <InfoBox>
