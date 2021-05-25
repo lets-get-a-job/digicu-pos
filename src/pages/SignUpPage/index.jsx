@@ -2,14 +2,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MainContainer, LogoImg, Div } from '../../components/atom';
+import { MainContainer, Container } from '../../components/atom';
+import { Logo } from '../../components/mocules';
 import PersonInfo from './PersonInfo';
 import CompanyInfo from './CompanyInfo';
 
-const SignUpContainer = styled(Div)`
+const SignUpContainer = styled(Container)`
   flex-direction: row;
-  width: 70%;
-  height: auto;
+  width: 70vw;
   min-width: 800px;
   max-width: 1200px;
   margin-top: 20px;
@@ -17,13 +17,11 @@ const SignUpContainer = styled(Div)`
   border-radius: 15px;
   background-color: #002060;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  overflow: scroll;
+  overflow: auto;
 `;
 
-const SignUpBox = styled(Div)`
+const SignUpBox = styled(Container)`
   width: 65%;
-  height: auto;
-  border-radius: 15px;
   margin: 0px;
   background-color: white;
   padding: 50px 30px;
@@ -35,14 +33,12 @@ export default function SignupPage() {
 
   return (
     <MainContainer>
-      <LogoImg
-        style={{
-          width: '20%',
-          height: '15%',
-          minWidth: '400px',
-          minHeight: '150px',
-          marginTop: '120px',
-        }}
+      <Logo
+        width="20%"
+        height="15%"
+        minWidth="400px"
+        minHeight="150px"
+        marginTop="120px"
       />
       <SignUpContainer>
         <SignUpBox>

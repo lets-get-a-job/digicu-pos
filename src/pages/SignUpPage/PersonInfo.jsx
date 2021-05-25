@@ -4,14 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import {
-  Container,
-  Text,
-  Input,
-  Button,
-  Div,
-  Form,
-} from '../../components/atom';
+import { Container, Text, Input, Button, Form } from '../../components/atom';
 
 export const MainText = styled(Text)`
   width: 100%;
@@ -20,12 +13,17 @@ export const MainText = styled(Text)`
   margin-bottom: 80px;
 `;
 
-export const InputContainer = styled(Div)`
+export const InputContainer = styled(Container)`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   font-size: 20px;
   margin-bottom: 50px;
+`;
+
+const InfoContainer = styled(Container)`
+  width: 100%;
+  overflow: auto;
 `;
 
 export const Label = styled(Text)``;
@@ -100,7 +98,7 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
   ];
 
   return (
-    <Container style={{ width: '100%' }}>
+    <InfoContainer>
       <MainText>사용자 정보</MainText>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {uInfo.map((v, i) => (
@@ -142,7 +140,7 @@ export default function PersonInfo({ setRegData, setCurState, regData }) {
           다음
         </Button>
       </Form>
-    </Container>
+    </InfoContainer>
   );
 }
 

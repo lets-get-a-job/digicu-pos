@@ -19,7 +19,7 @@ const PartialContainer = styled(Container)`
   min-width: 400px;
   height: 90vh;
   min-height: 600px;
-  background-color: #d8e2f3;
+  background-color: #dbdbdb;
   padding: 10px;
   box-shadow: 0.1vw 0.1vw 0.5vw 0.2vw rgba(0, 0, 0, 0.4);
   border-radius: 5px;

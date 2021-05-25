@@ -35,6 +35,8 @@ export default function Header({ top, right, except }) {
   const history = useHistory();
   const [user, setUser] = useUser();
 
+  console.log(user);
+
   const icon = [
     { text: 'pos', url: POS, path: '/pos' },
     { text: 'sale', url: SALE, path: '/sale' },
@@ -66,7 +68,7 @@ export default function Header({ top, right, except }) {
           </div>
         );
       })}
-      헤더입니다.
+      {user.companyInfo.company_name}
       <LogoutBtn
         onClick={() => {
           localStorage.removeItem('user');

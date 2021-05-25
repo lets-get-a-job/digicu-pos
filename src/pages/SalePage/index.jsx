@@ -15,8 +15,9 @@ const MainContainer = styled(Container)`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 4vw;
+  padding: 5vw;
   overflow: scroll;
+  position: relative;
 `;
 
 export default function SalePage() {

@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import {
-  LogoImg,
-  Container,
-  Button,
-  MainContainer,
-} from '../../components/atom';
-import { CheckBox } from '../../components/mocules';
+import { Container, Button, MainContainer } from '../../components/atom';
+import { CheckBox, Logo } from '../../components/mocules';
 import Data from './cpi.json';
 
 const SubContainer = styled(Container)`
@@ -31,14 +26,12 @@ export default function CPIPage() {
   return (
     <>
       <MainContainer>
-        <LogoImg
-          style={{
-            width: '20%',
-            height: '15%',
-            minWidth: '400px',
-            minHeight: '150px',
-            marginTop: '120px',
-          }}
+        <Logo
+          width="20%"
+          height="15%"
+          minWidth="400px"
+          minHeight="150px"
+          marginTop="120px"
         />
         <textarea
           style={{

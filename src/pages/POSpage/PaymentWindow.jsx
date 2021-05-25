@@ -22,7 +22,7 @@ import {
 import PaymentContext from '../../context/paymentContext';
 import { deleteList, clearList } from './store';
 import { RegistPayment } from '../../repo/payment';
-import date from '../../date';
+import { date } from '../../date';
 import time from '../../time';
 import useUser from '../../hook/useUser';
 
@@ -101,7 +101,7 @@ function PaymentWindow({ state, dispatch }) {
           sale: state.sale,
           sum: state.sum,
           total: state.total,
-          payment_time: `${date()} ${time()}`,
+          payment_time: `${date(new Date())} ${time()}`,
         },
         payment_items: paymentItems,
       };
