@@ -25,7 +25,7 @@ import { RegistPayment } from '../../repo/payment';
 import { date } from '../../date';
 import time from '../../time';
 import useUser from '../../hook/useUser';
-import { JoinSocket, GetSocket } from './socket';
+import { JoinSocket, GetSocket, PushSocekt } from './socket';
 
 const MainContainer = styled(Container)`
   padding: 0px;
@@ -116,6 +116,10 @@ function PaymentWindow({ state, dispatch }) {
     }
   };
 
+  const qrClicked = () => {
+    PushSocekt('qr');
+  };
+
   return (
     <MainContainer>
       <TableContainer>
@@ -154,7 +158,7 @@ function PaymentWindow({ state, dispatch }) {
       </TableContainer>
       <PaymentContainer>
         <PayBtn onClick={onClick}>결제하기</PayBtn>
-        <PayBtn onClick={onClick}>쿠폰받기</PayBtn>
+        <PayBtn onClick={qrClicked}>쿠폰받기</PayBtn>
         <TextContainer>
           <TextSubContainer>
             <Text>총 금액 : </Text>
