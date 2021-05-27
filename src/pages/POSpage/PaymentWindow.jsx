@@ -25,6 +25,7 @@ import { RegistPayment } from '../../repo/payment';
 import { date } from '../../date';
 import time from '../../time';
 import useUser from '../../hook/useUser';
+import { JoinSocket, GetSocket } from './socket';
 
 const MainContainer = styled(Container)`
   padding: 0px;
@@ -83,6 +84,10 @@ const TextSubContainer = styled(Container)`
 function PaymentWindow({ state, dispatch }) {
   const [user, setUser] = useUser();
   const payment = useContext(PaymentContext);
+
+  useEffect(() => {
+    JoinSocket(user.companyInfo.company_number);
+  }, []);
 
   const onClick = () => {
     if (window.confirm('결제하시겠습니까?')) {
@@ -149,6 +154,7 @@ function PaymentWindow({ state, dispatch }) {
       </TableContainer>
       <PaymentContainer>
         <PayBtn onClick={onClick}>결제하기</PayBtn>
+        <PayBtn onClick={onClick}>쿠폰받기</PayBtn>
         <TextContainer>
           <TextSubContainer>
             <Text>총 금액 : </Text>
