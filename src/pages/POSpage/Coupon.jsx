@@ -1,13 +1,20 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Container, Text } from '../../components/atom';
 import { Modal } from '../../components/mocules';
-import Issue from './Modal/Issue';
-import { InquiryCoupon } from '../../repo/coupon';
+import {
+  InquiryCoupon,
+  FindCoupon,
+  IssueCoupon,
+  AccumulateCoupon,
+} from '../../repo/coupon';
 import UseUser from '../../hook/useUser';
+import { PushSocekt } from './socket';
 
 const CouponContainer = styled(Container)`
   flex-direction: row;
@@ -33,14 +40,35 @@ const CouponBtn = styled(Button)`
   box-shadow: 0px 0px 4px 3px rgba(128, 128, 128, 0.7);
 `;
 
-export default function Coupon() {
+export default function Coupon({ msg, setCouponID }) {
   const [user, setUser] = UseUser();
   const [coupon, setCoupon] = useState();
   const [status, setStatus] = useState();
-
-  const [modal, setModal] = useState(false);
   const [id, setId] = useState(-1);
   const [name, setName] = useState('');
+
+  useEffect(() => {
+    if (msg.type === 'phone') {
+      const phone = msg.data.replace(/-/g, '');
+      console.log(phone);
+      FindCoupon(user.token, phone).then(d => {
+        const idx = d.data.findIndex(
+          element =>
+            element.issuer === user.companyInfo.email && element.name === name,
+        );
+        if (idx === -1) {
+          const payload = {
+            count: 1,
+            coupon_spec_id: id,
+            subject_phone: phone,
+          };
+          IssueCoupon(user.token, payload).then(data => console.log(data.data));
+        } else {
+          AccumulateCoupon(user.token, d.data[idx].id, { num_acc: 1 });
+        }
+      });
+    }
+  }, [msg]);
 
   useEffect(() => {
     setStatus('PENDING');
@@ -50,6 +78,15 @@ export default function Coupon() {
     });
   }, [user]);
 
+  const couponClicked = (cId, cName) => {
+    setCouponID(id);
+    setId(cId);
+    setName(cName);
+    if (window.confirm('쿠폰을 발급하시겠습니까?')) {
+      PushSocekt('phone');
+    }
+  };
+
   return (
     <CouponContainer>
       {status === 'SUCCESS'
@@ -57,18 +94,18 @@ export default function Coupon() {
             <CouponBtn
               key={v.id}
               onClick={() => {
-                setModal(!modal);
-                setId(v.id);
-                setName(v.name);
+                couponClicked(v.id, v.name);
               }}
             >
               <Text>{v.name}</Text>
             </CouponBtn>
           ))
         : '...로딩중'}
-      <Modal visible={modal} onCloseBtnClicked={() => setModal(!modal)}>
-        <Issue id={id} name={name} />
-      </Modal>
     </CouponContainer>
   );
 }
+
+Coupon.propTypes = {
+  msg: PropTypes.any.isRequired,
+  setCouponID: PropTypes.func.isRequired,
+};

@@ -6,20 +6,19 @@ const socket = io.connect(
 );
 
 export function JoinSocket(companyId) {
-  console.log(companyId);
   socket.emit('join', {
     company_id: companyId,
   });
 }
 
-export function GetSocket() {
+export function GetSocket(setMSG) {
   socket.on('dequeue', msg => {
-    console.log(msg);
+    setMSG(msg);
   });
 }
 
 export function PushSocekt(type) {
   socket.emit('enqueue', {
-    type: 'qr',
+    type,
   });
 }

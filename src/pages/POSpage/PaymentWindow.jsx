@@ -20,8 +20,9 @@ import {
   TableBtn,
 } from '../../components/atom';
 import PaymentContext from '../../context/paymentContext';
-import { deleteList, clearList } from './store';
+import { deleteList, clearList, addCoupon } from './store';
 import { RegistPayment } from '../../repo/payment';
+import { UseCoupon } from '../../repo/coupon';
 import { date } from '../../date';
 import time from '../../time';
 import useUser from '../../hook/useUser';
@@ -81,13 +82,26 @@ const TextSubContainer = styled(Container)`
   justify-content: space-between;
 `;
 
-function PaymentWindow({ state, dispatch }) {
+function PaymentWindow({ msg, setMSG, state, dispatch }) {
   const [user, setUser] = useUser();
   const payment = useContext(PaymentContext);
 
+  const [sale, setSale] = useState(0);
+
   useEffect(() => {
     JoinSocket(user.companyInfo.company_number);
+    GetSocket(setMSG);
   }, []);
+
+  useEffect(() => {
+    if (msg.type === 'qr') {
+      console.log(msg.data);
+      UseCoupon(user.token, msg.data).then(d => {
+        setSale(d.data.value);
+        dispatch(addCoupon(d.data.value));
+      });
+    }
+  }, [msg]);
 
   const onClick = () => {
     if (window.confirm('결제하시겠습니까?')) {
@@ -117,7 +131,17 @@ function PaymentWindow({ state, dispatch }) {
   };
 
   const qrClicked = () => {
-    PushSocekt('qr');
+    if (window.confirm('쿠폰을 사용하시겠습니까?')) {
+      const id = 27;
+      PushSocekt('qr');
+      UseCoupon(user.token, id).then(d => {
+        console.log(d.data);
+        console.log(d.data.value);
+        setSale(d.data.value);
+
+        dispatch(addCoupon(d.data.value));
+      });
+    }
   };
 
   return (
@@ -153,6 +177,15 @@ function PaymentWindow({ state, dispatch }) {
                 </Td>
               </Tr>
             ))}
+            {sale === 0 ? null : (
+              <Tr>
+                <Td>#</Td>
+                <Td>쿠폰할인</Td>
+                <Td>{sale}</Td>
+                <Td>1</Td>
+                <Td />
+              </Tr>
+            )}
           </Tbody>
         </Table>
       </TableContainer>
@@ -179,6 +212,8 @@ function PaymentWindow({ state, dispatch }) {
 }
 
 PaymentWindow.propTypes = {
+  msg: PropTypes.any.isRequired,
+  setMSG: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };

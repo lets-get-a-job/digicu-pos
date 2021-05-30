@@ -35,8 +35,6 @@ export default function Header({ top, right, except }) {
   const history = useHistory();
   const [user, setUser] = useUser();
 
-  console.log(user);
-
   const icon = [
     { text: 'pos', url: POS, path: '/pos' },
     { text: 'sale', url: SALE, path: '/sale' },
