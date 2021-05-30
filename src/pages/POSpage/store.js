@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 const ADD = 'ADD';
 const PLUS = 'PLUS';
 const DELETE = 'DELETE';
+const COUPON = 'COUPON';
 const CLEAR = 'CLEAR';
 
 export const addList = data => ({
@@ -23,6 +24,11 @@ export const plusCount = data => ({
 export const deleteList = data => ({
   type: DELETE,
   data,
+});
+
+export const addCoupon = sale => ({
+  type: COUPON,
+  sale,
 });
 
 export const clearList = () => ({
@@ -54,6 +60,10 @@ const reducer = (state = initailState, action) => {
       state.menus.splice(action.data.id, 1);
       state.sum -= action.data.price * action.data.count;
       state.total -= action.data.price * action.data.count;
+      return { ...state };
+    case COUPON:
+      state.sale = action.sale;
+      state.total -= action.sale;
       return { ...state };
     case CLEAR:
       return initailState;

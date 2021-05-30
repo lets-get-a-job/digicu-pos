@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { MainContainer, Container } from '../../components/atom';
@@ -16,15 +16,17 @@ const SubContainer = styled(Container)`
 `;
 
 export default function POSPage() {
+  const [msg, setMSG] = useState({});
+  const [couponID, setCouponID] = useState();
   return (
     <MainContainer>
       <Header top="0px" right="0px" except="pos" />
       <SubContainer>
-        <PaymentWindow />
+        <PaymentWindow msg={msg} setMSG={setMSG} />
         <Menus />
       </SubContainer>
       <SubContainer>
-        <Coupon />
+        <Coupon msg={msg} setCouponID={setCouponID} />
       </SubContainer>
     </MainContainer>
   );

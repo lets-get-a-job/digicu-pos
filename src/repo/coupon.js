@@ -62,7 +62,6 @@ export async function IssueCoupon(accessToken, payload) {
 }
 
 export async function AccumulateCoupon(accessToken, id, payload) {
-  console.log(payload);
   const req = await axios.patch(
     `/coupon/accumulate/${id}`,
     { ...payload },
@@ -74,9 +73,20 @@ export async function AccumulateCoupon(accessToken, id, payload) {
 }
 
 export async function FindCoupon(accessToken, phone) {
-  const req = await axios.get(`/coupon/?phone=${phone}&state=normal`, {
+  const req = await axios.get(`/coupon?phone=${phone}&state=normal`, {
     headers: { ...defaultHeaders, Authorization: accessToken },
   });
 
+  return req;
+}
+
+export async function UseCoupon(accessToken, id) {
+  const req = await axios.patch(
+    `/coupon/use/${id}`,
+    {},
+    {
+      headers: { ...defaultHeaders, Authorization: accessToken },
+    },
+  );
   return req;
 }
