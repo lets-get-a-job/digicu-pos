@@ -49,24 +49,29 @@ export default function Coupon({ msg, setCouponID }) {
 
   useEffect(() => {
     if (msg.type === 'phone') {
-      const phone = msg.data.replace(/-/g, '');
-      console.log(phone);
-      FindCoupon(user.token, phone).then(d => {
-        const idx = d.data.findIndex(
-          element =>
-            element.issuer === user.companyInfo.email && element.name === name,
-        );
-        if (idx === -1) {
-          const payload = {
-            count: 1,
-            coupon_spec_id: id,
-            subject_phone: phone,
-          };
-          IssueCoupon(user.token, payload).then(data => console.log(data.data));
-        } else {
-          AccumulateCoupon(user.token, d.data[idx].id, { num_acc: 1 });
-        }
-      });
+      if (msg.data !== 'cancel') {
+        const phone = msg.data.replace(/-/g, '');
+        console.log(phone);
+        FindCoupon(user.token, phone).then(d => {
+          const idx = d.data.findIndex(
+            element =>
+              element.issuer === user.companyInfo.email &&
+              element.name === name,
+          );
+          if (idx === -1) {
+            const payload = {
+              count: 1,
+              coupon_spec_id: id,
+              subject_phone: phone,
+            };
+            IssueCoupon(user.token, payload).then(data =>
+              console.log(data.data),
+            );
+          } else {
+            AccumulateCoupon(user.token, d.data[idx].id, { num_acc: 1 });
+          }
+        });
+      }
     }
   }, [msg]);
 
