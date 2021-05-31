@@ -95,11 +95,11 @@ function PaymentWindow({ msg, setMSG, state, dispatch }) {
 
   useEffect(() => {
     if (msg.type === 'qr') {
-      console.log(msg.data);
-      UseCoupon(user.token, msg.data).then(d => {
-        setSale(d.data.value);
-        dispatch(addCoupon(d.data.value));
-      });
+      if (msg.data !== 'cancel')
+        UseCoupon(user.token, msg.data).then(d => {
+          setSale(d.data.value);
+          dispatch(addCoupon(d.data.value));
+        });
     }
   }, [msg]);
 
@@ -132,15 +132,7 @@ function PaymentWindow({ msg, setMSG, state, dispatch }) {
 
   const qrClicked = () => {
     if (window.confirm('쿠폰을 사용하시겠습니까?')) {
-      const id = 27;
       PushSocekt('qr');
-      UseCoupon(user.token, id).then(d => {
-        console.log(d.data);
-        console.log(d.data.value);
-        setSale(d.data.value);
-
-        dispatch(addCoupon(d.data.value));
-      });
     }
   };
 
