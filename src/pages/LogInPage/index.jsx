@@ -76,13 +76,16 @@ export default function LogInPage() {
       const payload = { email, plain_password: pw };
       SignIn(payload)
         .then(d => {
-          console.log(d);
           const cur = +new Date() + d.data.expires_in;
           setUser({
             companyInfo: d.data.companyInfo,
             token: d.data.token,
             expireIn: cur,
           });
+          if (check) {
+            if (localStorage.getItem('email')) localStorage.removeItem('email');
+            localStorage.setItem('email', d.data.companyInfo.email);
+          }
         })
         .catch(error => {
           if (error.response.status === 401) {
@@ -96,10 +99,6 @@ export default function LogInPage() {
 
   useEffect(() => {
     if (user) {
-      if (check) {
-        console.log(user);
-        localStorage.setItem('email', user.companyInfo.email);
-      }
       history.push('/manage');
     }
   }, [user]);
@@ -108,6 +107,10 @@ export default function LogInPage() {
     const save = localStorage.getItem('email');
     if (save) setEmail(save);
   }, []);
+
+  useEffect(() => {
+    console.log(check);
+  }, [check]);
 
   return (
     <>
