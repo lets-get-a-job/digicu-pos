@@ -56,7 +56,6 @@ export default function CurrentProduct() {
       setStatus('PENDING');
       InquiryMenu(user.token, user.companyInfo.company_number).then(d => {
         setMyMenus(d.data);
-        console.log(d.data);
       });
       setStatus('SUCCESS');
       setIsChange(false);
@@ -94,7 +93,7 @@ export default function CurrentProduct() {
           {status === 'SUCCESS' ? (
             myMenus === null ? (
               <Tr>
-                <Td>현재 등록 메뉴가 없습니다.</Td>
+                <Td colSpan="4">현재 등록 메뉴가 없습니다.</Td>
               </Tr>
             ) : (
               myMenus.map((v, i) => (

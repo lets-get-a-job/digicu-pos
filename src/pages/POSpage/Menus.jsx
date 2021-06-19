@@ -88,15 +88,6 @@ function Menus({ menuss, dispatch }) {
         }
         return null;
       })}
-      {menus.length % 2 === 0 ? (
-        <MenuContainer style={{ marginRight: 'auto' }}>
-          <Label>+</Label>
-        </MenuContainer>
-      ) : (
-        <MenuContainer>
-          <Label>+</Label>
-        </MenuContainer>
-      )}
     </MainContainer>
   );
 }
