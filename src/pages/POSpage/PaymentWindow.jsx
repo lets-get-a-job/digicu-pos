@@ -84,9 +84,6 @@ const TextSubContainer = styled(Container)`
 
 function PaymentWindow({ msg, setMSG, state, dispatch }) {
   const [user, setUser] = useUser();
-  const payment = useContext(PaymentContext);
-
-  const [sale, setSale] = useState(0);
 
   useEffect(() => {
     JoinSocket(user.companyInfo.company_number);
@@ -97,7 +94,6 @@ function PaymentWindow({ msg, setMSG, state, dispatch }) {
     if (msg.type === 'qr') {
       if (msg.data !== 'cancel')
         UseCoupon(user.token, msg.data).then(d => {
-          setSale(d.data.value);
           dispatch(addCoupon(d.data.value));
         });
     }
@@ -169,11 +165,11 @@ function PaymentWindow({ msg, setMSG, state, dispatch }) {
                 </Td>
               </Tr>
             ))}
-            {sale === 0 ? null : (
+            {state.sale === 0 ? null : (
               <Tr>
                 <Td>#</Td>
                 <Td>쿠폰할인</Td>
-                <Td>{sale}</Td>
+                <Td>{state.sale}</Td>
                 <Td>1</Td>
                 <Td />
               </Tr>

@@ -43,11 +43,6 @@ export default function Page() {
       path: '/cupon/registcupon',
       component: RegistCoupon,
     },
-    {
-      text: '쿠폰 발급 내역',
-      path: '/cupon/issuedcupon',
-      component: IssuedCoupon,
-    },
   ];
   return (
     <>

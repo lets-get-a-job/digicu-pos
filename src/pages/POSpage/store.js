@@ -66,7 +66,7 @@ const reducer = (state = initailState, action) => {
       state.total -= action.sale;
       return { ...state };
     case CLEAR:
-      return initailState;
+      return { ...initailState };
     default:
       return { ...state };
   }

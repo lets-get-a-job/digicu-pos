@@ -49,7 +49,6 @@ export default function CurrentCoupon() {
       setStatus('PENDING');
       setModal(false);
       InquiryCoupon(user.token, user.companyInfo.email).then(d => {
-        console.log('불러오는중');
         setCoupon(d.data);
         setStatus('SUCCESS');
         setIsChange(false);
@@ -76,9 +75,9 @@ export default function CurrentCoupon() {
         </Thead>
         <Tbody>
           {status === 'SUCCESS' ? (
-            coupon === null ? (
+            !coupon.length ? (
               <Tr>
-                <Td>현재 등록된 쿠폰이 없습니다</Td>
+                <Td colSpan="5">현재 등록된 쿠폰이 없습니다</Td>
               </Tr>
             ) : (
               coupon.map((v, i) => (

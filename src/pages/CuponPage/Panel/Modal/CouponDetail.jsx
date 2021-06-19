@@ -76,7 +76,12 @@ export default function Detail({
         period: parseInt(info.period),
       };
       console.log(payload);
-      ModifyCoupon(user.token, payload, couponId);
+      ModifyCoupon(user.token, payload, couponId).then(d => {
+        setIsChange(true);
+        setModal(false);
+        setCouponId(0);
+        alert('수정되었습니다.');
+      });
     }
   };
 
