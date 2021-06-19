@@ -96,9 +96,18 @@ export default function LogInPage() {
 
   useEffect(() => {
     if (user) {
+      if (check) {
+        console.log(user);
+        localStorage.setItem('email', user.companyInfo.email);
+      }
       history.push('/manage');
     }
   }, [user]);
+
+  useEffect(() => {
+    const save = localStorage.getItem('email');
+    if (save) setEmail(save);
+  }, []);
 
   return (
     <>

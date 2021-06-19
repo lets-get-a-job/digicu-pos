@@ -70,18 +70,6 @@ export default function Detail({ menu, setMenu, setIsChange }) {
         />
       </SubContainer>
       <SubContainer>
-        <Text>재고</Text>
-        <Input
-          value={menu.stock}
-          onChange={e =>
-            setMenu({
-              ...menu,
-              stock: e.target.value.replace(/[^0-9]/g, ''),
-            })
-          }
-        />
-      </SubContainer>
-      <SubContainer>
         <Button onClick={onModifyBtnClicked}>수정하기</Button>
         <Button onClick={onDeleteBtnClicked}>삭제하기</Button>
       </SubContainer>
