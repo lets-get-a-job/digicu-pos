@@ -53,6 +53,7 @@ const SaleContainer = styled(Container)`
   padding: 10px;
   background-color: white;
   border-radius: 5px;
+  overflow: scroll;
 `;
 
 const TBodyTr = styled(Tr)`
@@ -98,6 +99,7 @@ export default function EntireSale({ setDetailList }) {
       },
     };
     InquiryPayment(user.token, payload).then(d => {
+      console.log(d);
       setPaymentList(d);
       setDetailList([]);
       console.log(d);
