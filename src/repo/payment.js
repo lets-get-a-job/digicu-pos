@@ -19,7 +19,7 @@ export async function InquiryPayment(AccessToken, payload) {
   const req = await axios
     .get(`/pos/payment/${payload.companyNumber}`, {
       headers: { ...defaultHeaders, Authorization: AccessToken },
-      params: { ...payload.params },
+      params: { ...payload.params, count: 1000 },
     })
     .then(d => d);
 

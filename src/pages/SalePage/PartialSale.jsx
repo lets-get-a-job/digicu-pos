@@ -35,6 +35,7 @@ const TableContainer = styled(Container)`
   margin: 0px;
   padding: 10px;
   border-radius: 5px;
+  overflow: scroll;
 `;
 
 const ToTalContainer = styled(Container)`
